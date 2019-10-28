@@ -1,0 +1,31 @@
+original_name,field_name,field_type
+Código Pagamento,codigo_pagamento,text
+Código Pagamento Resumido,codigo_pagamento_resumido,text
+Data Emissão,data_emissao,date
+Código Tipo Documento,codigo_tipo_documento,text
+Tipo Documento,tipo_documento,text
+Tipo OB,tipo_ob,text
+Extraorçamentário,extraorcamentario,text
+Código Órgão Superior,codigo_orgao_superior,integer
+Órgão Superior,orgao_superior,text
+Código Órgão,codigo_orgao,integer
+Órgão,orgao,text
+Código Unidade Gestora,codigo_unidade_gestora,integer
+Unidade Gestora,unidade_gestora,text
+Código Gestão,codigo_gestao,text
+Gestão,gestao,text
+Código Favorecido,codigo_favorecido,text
+Favorecido,favorecido,text
+Observação,observacao,text
+Processo,processo,text
+Código Categoria de Despesa,codigo_categoria_de_despesa,text
+Categoria de Despesa,categoria_de_despesa,text
+Código Grupo de Despesa,codigo_grupo_de_despesa,text
+Grupo de Despesa,grupo_de_despesa,text
+Código Modalidade de Aplicação,codigo_modalidade_de_aplicacao,text
+Modalidade de Aplicação,modalidade_de_aplicacao,text
+Código Elemento de Despesa,codigo_elemento_de_despesa,text
+Elemento de Despesa,elemento_de_despesa,text
+Valor Original do Pagamento,valor_original,money_real
+Valor do Pagamento Convertido pra R$,valor_convertido_para_reais,money_real
+Valor Utilizado na Conversão,taxa_de_conversao,money_real
