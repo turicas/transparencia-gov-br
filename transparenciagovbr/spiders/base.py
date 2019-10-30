@@ -11,10 +11,11 @@ class TransparenciaBaseSpider(scrapy.Spider):
     allowed_domains = ["portaldatransparencia.gov.br"]
 
     def start_requests(self):
-        for date in date_range(start=self.start_date, stop=self.end_date, interval=self.publish_frequency):
+        for date in date_range(
+            start=self.start_date, stop=self.end_date, interval=self.publish_frequency
+        ):
             yield scrapy.Request(
-                self.base_url.format(**date_to_dict(date)),
-                callback=self.parse_zip,
+                self.base_url.format(**date_to_dict(date)), callback=self.parse_zip
             )
 
     def convert_row(self, row):

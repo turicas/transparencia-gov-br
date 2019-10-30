@@ -21,9 +21,8 @@ class MoneyRealField(rows.fields.DecimalField):
         value = value.replace(",", ".")
         return super().deserialize(value)
 
-SCHEMA_PATH = str(
-    (settings.REPOSITORY_PATH / "schema" / "pagamento.csv").absolute()
-)
+
+SCHEMA_PATH = str((settings.REPOSITORY_PATH / "schema" / "pagamento.csv").absolute())
 SCHEMA = rows.utils.load_schema(
     SCHEMA_PATH,
     context={
