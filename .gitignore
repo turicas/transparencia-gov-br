@@ -9,6 +9,7 @@
 .env
 .idea/*
 .tox
+.scrapy
 MANIFEST
 build/*
 dist/*
