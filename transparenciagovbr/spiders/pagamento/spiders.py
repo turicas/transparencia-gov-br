@@ -1,9 +1,8 @@
 import datetime
 
-
 from transparenciagovbr.spiders.base import TransparenciaBaseSpider
 from transparenciagovbr.utils.date import today
-from transparenciagovbr.utils.fields import load_schema, field_mapping_from_csv
+from transparenciagovbr.utils.fields import field_mapping_from_csv, load_schema
 
 
 class PagamentoSpider(TransparenciaBaseSpider):

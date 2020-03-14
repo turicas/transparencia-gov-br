@@ -4,8 +4,8 @@ import io
 import zipfile
 
 from transparenciagovbr.spiders.base import TransparenciaBaseSpider
+from transparenciagovbr.utils.fields import field_mapping_from_csv, load_schema
 from transparenciagovbr.utils.io import NotNullTextWrapper
-from transparenciagovbr.utils.fields import load_schema, field_mapping_from_csv
 
 
 class PagamentoHistSpider(TransparenciaBaseSpider):
