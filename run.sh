@@ -3,12 +3,13 @@
 rm -rf data/output
 mkdir -p data/output data/log
 
-#time scrapy crawl \
-#	--loglevel=INFO --logfile=data/log/pagamento.log \
-#	pagamento \
-#	-t csv.gz -o data/output/pagamento.csv.gz
-
-time scrapy crawl \
-	--loglevel=INFO --logfile=data/log/pagamento2.log \
-	pagamento \
-	-t csv.gz -o data/output/pagamento2.csv.gz
+for spider in pagamento pagamento-hist; do
+	log_filename="data/log/${spider}.log"
+	output_filename="data/output/${spider}.csv.gz"
+	echo "Running ${spider} - check $log_filename for logs and $output_filename for output"
+	time scrapy crawl \
+		--loglevel=INFO --logfile=$log_filename \
+		$spider \
+		-t csv.gz \
+		-o $output_filename
+done
