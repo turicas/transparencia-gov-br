@@ -9,7 +9,7 @@ from transparenciagovbr.utils.fields import load_schema, field_mapping_from_csv
 class PagamentoSpider(TransparenciaBaseSpider):
     name = "pagamento"
     base_url = "http://www.portaldatransparencia.gov.br/download-de-dados/despesas/{year}{month:02d}{day:02d}"
-    start_date = datetime.date(2013, 1, 1)
+    start_date = datetime.date(2013, 3, 31)
     end_date = today()
     publish_frequency = "daily"
     filename_suffix = "_Despesas_Pagamento.csv"
