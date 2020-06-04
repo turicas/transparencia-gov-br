@@ -1,3 +1,5 @@
+cached_property
 https://github.com/turicas/rows/archive/develop.zip#egg=rows
-requests
+requests  # TODO: remove when dependency bug in rows is fixed
 scrapy
+tqdm

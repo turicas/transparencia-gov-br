@@ -1,0 +1,25 @@
+original_name,field_name,internal_field_type,field_type
+CÓDIGO AÇÃO,codigo_acao,text,text
+CÓDIGO CATEGORIA ECONÔMICA,codigo_categoria_economica,custom_integer,integer
+CÓDIGO ELEMENTO DE DESPESA,codigo_elemento_de_despesa,text,text
+CÓDIGO FUNÇÃO,codigo_funcao,custom_integer,integer
+CÓDIGO GRUPO DE DESPESA,codigo_grupo_de_despesa,text,text
+CÓDIGO PROGRAMA ORÇAMENTÁRIO,codigo_programa_orcamentario,custom_integer,integer
+CÓDIGO SUBFUNÇÃO,codigo_subfuncao,custom_integer,integer
+CÓDIGO UNIDADE ORÇAMENTÁRIA,codigo_unidade_orcamentaria,custom_integer,integer
+CÓDIGO ÓRGÃO SUBORDINADO,codigo_orgao_subordinado,custom_integer,integer
+CÓDIGO ÓRGÃO SUPERIOR,codigo_orgao_superior,custom_integer,integer
+EXERCÍCIO,exercicio,text,text
+NOME AÇÃO,nome_acao,text,text
+NOME CATEGORIA ECONÔMICA,nome_categoria_economica,text,text
+NOME ELEMENTO DE DESPESA,nome_elemento_de_despesa,text,text
+NOME FUNÇÃO,nome_funcao,text,text
+NOME GRUPO DE DESPESA,nome_grupo_de_despesa,text,text
+NOME PROGRAMA ORÇAMENTÁRIO,nome_programa_orcamentario,text,text
+NOME SUBFUNÇÃO,nome_subfuncao,text,text
+NOME UNIDADE ORÇAMENTÁRIA,nome_unidade_orcamentaria,text,text
+NOME ÓRGÃO SUBORDINADO,nome_orgao_subordinado,text,text
+NOME ÓRGÃO SUPERIOR,nome_orgao_superior,text,text
+ORÇAMENTO ATUALIZADO (R$),orcamento_atualizado,money_real,decimal
+ORÇAMENTO INICIAL (R$),orcamento_inicial,money_real,decimal
+ORÇAMENTO REALIZADO (R$),orcamento_realizado,money_real,decimal

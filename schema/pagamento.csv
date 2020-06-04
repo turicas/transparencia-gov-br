@@ -1,31 +1,35 @@
-original_name,field_name,field_type
-Código Pagamento,codigo_pagamento,text
-Código Pagamento Resumido,codigo_pagamento_resumido,text
-Data Emissão,data_emissao,date
-Código Tipo Documento,codigo_tipo_documento,text
-Tipo Documento,tipo_documento,text
-Tipo OB,tipo_ob,text
-Extraorçamentário,extraorcamentario,text
-Código Órgão Superior,codigo_orgao_superior,integer
-Órgão Superior,orgao_superior,text
-Código Órgão,codigo_orgao,integer
-Órgão,orgao,text
-Código Unidade Gestora,codigo_unidade_gestora,integer
-Unidade Gestora,unidade_gestora,text
-Código Gestão,codigo_gestao,text
-Gestão,gestao,text
-Código Favorecido,codigo_favorecido,text
-Favorecido,favorecido,text
-Observação,observacao,text
-Processo,processo,text
-Código Categoria de Despesa,codigo_categoria_de_despesa,text
-Categoria de Despesa,categoria_de_despesa,text
-Código Grupo de Despesa,codigo_grupo_de_despesa,text
-Grupo de Despesa,grupo_de_despesa,text
-Código Modalidade de Aplicação,codigo_modalidade_de_aplicacao,text
-Modalidade de Aplicação,modalidade_de_aplicacao,text
-Código Elemento de Despesa,codigo_elemento_de_despesa,text
-Elemento de Despesa,elemento_de_despesa,text
-Valor Original do Pagamento,valor_original,money_real
-Valor do Pagamento Convertido pra R$,valor_convertido_para_reais,money_real
-Valor Utilizado na Conversão,taxa_de_conversao,money_real
+original_name,field_name,internal_field_type,field_type
+Categoria de Despesa,categoria_de_despesa,text,text
+Código Categoria de Despesa,codigo_categoria_de_despesa,text,text
+Código Elemento de Despesa,codigo_elemento_de_despesa,text,text
+Código Favorecido,codigo_favorecido,text,text
+Código Gestão,codigo_gestao,custom_integer,integer
+Código Grupo de Despesa,codigo_grupo_de_despesa,text,text
+Código Modalidade de Aplicação,codigo_modalidade_de_aplicacao,text,text
+Código Pagamento Resumido,codigo_pagamento_resumido,text,text
+Código Pagamento,codigo_pagamento,text,text
+Código Plano Orçamentário,codigo_plano_orcamentario,text,text
+Código Programa Governo,codigo_programa_governo,text,text
+Código Tipo Documento,codigo_tipo_documento,text,text
+Código Unidade Gestora,codigo_unidade_gestora,custom_integer,integer
+Código Órgão Superior,codigo_orgao_superior,custom_integer,integer
+Código Órgão,codigo_orgao,custom_integer,integer
+Data Emissão,data_emissao,date,date
+Elemento de Despesa,elemento_de_despesa,text,text
+Extraorçamentário,extraorcamentario,text,text
+Favorecido,favorecido,text,text
+Gestão,gestao,text,text
+Grupo de Despesa,grupo_de_despesa,text,text
+Modalidade de Aplicação,modalidade_de_aplicacao,text,text
+Nome Programa Governo,programa_governo,text,text
+Observação,observacao,text,text
+Plano Orçamentário,plano_orcamentario,text,text
+Processo,processo,text,text
+Tipo Documento,tipo_documento,text,text
+Tipo OB,tipo_ob,text,text
+Unidade Gestora,unidade_gestora,text,text
+Valor Original do Pagamento,valor_original,money_real,decimal
+Valor Utilizado na Conversão,taxa_de_conversao,money_real,decimal
+Valor do Pagamento Convertido pra R$,valor_convertido_para_reais,money_real,decimal
+Órgão Superior,orgao_superior,text,text
+Órgão,orgao,text,text

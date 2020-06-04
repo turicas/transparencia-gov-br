@@ -1,7 +1,9 @@
+from collections import OrderedDict
+
 import rows
 
 from transparenciagovbr import settings
-from transparenciagovbr.fields import BrazilianDateField, MoneyRealField
+from transparenciagovbr.fields import BrazilianDateField, CustomIntegerField, MoneyRealField
 
 
 def schema_path_from_filename(filename):
@@ -10,14 +12,16 @@ def schema_path_from_filename(filename):
 
 def load_schema(filename):
     schema_path = schema_path_from_filename(filename)
-    return rows.utils.load_schema(
-        schema_path,
-        context={
-            "date": BrazilianDateField,
-            "text": rows.fields.TextField,
-            "integer": rows.fields.IntegerField,
-            "money_real": MoneyRealField,
-        },
+    table = rows.import_from_csv(schema_path)
+    table.field_names
+    context = {
+        "date": BrazilianDateField,
+        "text": rows.fields.TextField,
+        "custom_integer": CustomIntegerField,
+        "money_real": MoneyRealField,
+    }
+    return OrderedDict(
+        [(row.field_name, context[row.internal_field_type]) for row in table]
     )
 
 

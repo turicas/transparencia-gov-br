@@ -2,7 +2,6 @@ import datetime
 
 from transparenciagovbr.spiders.base import TransparenciaBaseSpider
 from transparenciagovbr.utils.date import today
-from transparenciagovbr.utils.fields import field_mapping_from_csv, load_schema
 
 
 class PagamentoSpider(TransparenciaBaseSpider):
@@ -12,5 +11,4 @@ class PagamentoSpider(TransparenciaBaseSpider):
     end_date = today()
     publish_frequency = "daily"
     filename_suffix = "_Despesas_Pagamento.csv"
-    schema = load_schema("pagamento.csv")
-    field_mapping = field_mapping_from_csv("pagamento.csv")
+    schema_filename = "pagamento.csv"
