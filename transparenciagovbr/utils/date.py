@@ -1,3 +1,4 @@
+import calendar
 import datetime
 
 
@@ -16,8 +17,16 @@ def next_month(date):
     )
 
 
+def next_year(date):
+    if calendar.isleap(date.year):
+        days_to_add = 366
+    else:
+        days_to_add = 365
+    return date + datetime.timedelta(days=days_to_add)
+
+
 def next_date(date, interval="daily"):
-    from_interval = {"daily": next_day, "monthly": next_month}
+    from_interval = {"daily": next_day, "monthly": next_month, "yearly": next_year}
 
     return from_interval[interval](date)
 

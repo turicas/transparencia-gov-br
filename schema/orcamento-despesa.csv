@@ -1,0 +1,25 @@
+original_name,field_name,field_type
+EXERCÍCIO,exercicio,text
+CÓDIGO ÓRGÃO SUPERIOR,codigo_orgao_superior,text
+NOME ÓRGÃO SUPERIOR,nome_orgao_superior,text
+CÓDIGO ÓRGÃO SUBORDINADO,codigo_orgao_subordinado,text
+NOME ÓRGÃO SUBORDINADO,nome_orgao_subordinado,text
+CÓDIGO UNIDADE ORÇAMENTÁRIA,codigo_unidade_orcamentaria,text
+NOME UNIDADE ORÇAMENTÁRIA,nome_unidade_orcamentaria,text
+CÓDIGO FUNÇÃO,codigo_funcao,text
+NOME FUNÇÃO,nome_funcao,text
+CÓDIGO SUBFUNÇÃO,codigo_subfuncao,text
+NOME SUBFUNÇÃO,nome_subfuncao,text
+CÓDIGO PROGRAMA ORÇAMENTÁRIO,codigo_programa_orcamentario,text
+NOME PROGRAMA ORÇAMENTÁRIO,nome_programa_orcamentario,text
+CÓDIGO AÇÃO,codigo_acao,text
+NOME AÇÃO,nome_acao,text
+CÓDIGO CATEGORIA ECONÔMICA,codigo_categoria_economica,text
+NOME CATEGORIA ECONÔMICA,nome_categoria_economica,text
+CÓDIGO GRUPO DE DESPESA,codigo_grupo_de_despesa,text
+NOME GRUPO DE DESPESA,nome_grupo_de_despesa,text
+CÓDIGO ELEMENTO DE DESPESA,codigo_elemento_de_despesa,text
+NOME ELEMENTO DE DESPESA,nome_elemento_de_despesa,text
+ORÇAMENTO INICIAL (R$),orcamento_inicial,money_real
+ORÇAMENTO ATUALIZADO (R$),orcamento_atualizado,money_real
+ORÇAMENTO REALIZADO (R$),orcamento_realizado,money_real

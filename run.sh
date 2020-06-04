@@ -3,7 +3,7 @@
 rm -rf data/output
 mkdir -p data/output data/log
 
-for spider in pagamento pagamento-hist execucao-despesa; do
+for spider in pagamento pagamento-hist execucao-despesa orcamento-despesa; do
 	log_filename="data/log/${spider}.log"
 	output_filename="data/output/${spider}.csv.gz"
 	echo "Running ${spider} - check $log_filename for logs and $output_filename for output"
