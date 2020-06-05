@@ -15,10 +15,11 @@ def load_schema(filename):
     table = rows.import_from_csv(schema_path)
     table.field_names
     context = {
-        "date": BrazilianDateField,
-        "text": rows.fields.TextField,
+        "bool": rows.fields.BoolField,
         "custom_integer": CustomIntegerField,
+        "date": BrazilianDateField,
         "money_real": MoneyRealField,
+        "text": rows.fields.TextField,
     }
     return OrderedDict(
         [(row.field_name, context[row.internal_field_type]) for row in table]

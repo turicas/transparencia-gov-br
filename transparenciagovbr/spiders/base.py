@@ -9,6 +9,11 @@ from transparenciagovbr.utils.date import date_range, date_to_dict
 from transparenciagovbr.utils.fields import field_mapping_from_csv, load_schema
 
 
+EM_SIGILO_STRINGS = (
+    "Detalhamento das informações bloqueado.",
+    "Informações protegidas por sigilo, nos termos da legislação, para garantia da segurança da sociedade e do Estado",
+)
+
 class TransparenciaBaseSpider(scrapy.Spider):
     allowed_domains = ["portaldatransparencia.gov.br"]
 
@@ -29,19 +34,26 @@ class TransparenciaBaseSpider(scrapy.Spider):
             )
 
     def convert_row(self, row):
+        em_sigilo = "f"
         new = {}
         keys_not_found = set()
         for original_field_name, field_name in self.field_mapping.items():
+            if field_name == "em_sigilo":
+                continue
             try:
                 value = row.pop(original_field_name)
             except KeyError:
                 keys_not_found.add(original_field_name)
                 value = None
+            if value in EM_SIGILO_STRINGS:
+                em_sigilo = "t"
+                value = None
             try:
                 new[field_name] = self.schema[field_name].deserialize(value)
             except ValueError:
-                self.logger.error(f"Wrong value for {field_name}: {repr(value)}")
+                self.logger.error(f"Wrong value for {field_name} ({self.schema[field_name].__name__}): {repr(value)}")
                 return None
+        new["em_sigilo"] = em_sigilo
         if row:
             missing_schema_keys = ", ".join(sorted(row.keys()))
             self.logger.warning(f"Missing following keys in schema: {missing_schema_keys}")

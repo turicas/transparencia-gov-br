@@ -1,26 +1,27 @@
 original_name,field_name,internal_field_type,field_type
+Nome Ação,acao,text,text
 Código Ação,codigo_acao,text,text
 Código Elemento Despesa,codigo_elemento_despesa,text,text
 Código Favorecido,codigo_favorecido,text,text
 Código Função,codigo_funcao,custom_integer,integer
 Código Grupo Despesa,codigo_grupo_despesa,text,text
+Código Órgão,codigo_orgao,custom_integer,integer
+Código Órgão Superior,codigo_orgao_superior,custom_integer,integer
 Código Programa,codigo_programa,custom_integer,integer
 Código Subfunção,codigo_subfuncao,custom_integer,integer
 Código Unidade Gestora,codigo_unidade_gestora,custom_integer,integer
-Código Órgão Superior,codigo_orgao_superior,custom_integer,integer
-Código Órgão,codigo_orgao,custom_integer,integer
 Data Pagamento,data_pagamento,date,date
-Gestão Pagamento,gestao_pagamento,text,text
-Linguagem Cidadã,linguagem_cidada,text,text
-Nome Ação,acao,text,text
 Nome Elemento Despesa,elemento_despesa,text,text
+(coluna criada pelo script),em_sigilo,bool,
 Nome Favorecido,favorecido,text,text
 Nome Função,funcao,text,text
+Gestão Pagamento,gestao_pagamento,text,text
 Nome Grupo Despesa,grupo_despesa,text,text
+Linguagem Cidadã,linguagem_cidada,text,text
+Número Documento,numero_documento,text,text
+Nome Órgao,orgao,text,text
+Nome Órgão Superior,orgao_superior,text,text
 Nome Programa,programa,text,text
 Nome Subfunção,subfuncao,text,text
 Nome Unidade Gestora,unidade_gestora,text,text
-Nome Órgao,orgao,text,text
-Nome Órgão Superior,orgao_superior,text,text
-Número Documento,numero_documento,text,text
 Valor,valor,money_real,decimal
