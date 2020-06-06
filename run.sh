@@ -3,6 +3,13 @@
 set -e
 OUTPUT_PATH=data/output
 LOG_PATH=data/log
+LOG_LEVEL=INFO
+if [ "$1" = "--use-mirror" ]; then
+	OPTS="-a use_mirror=true"
+	shift
+else
+	OPTS=""
+fi
 
 run_spider() {
 	spider="$1"
@@ -13,16 +20,19 @@ run_spider() {
 	rm -rf $log_filename $output_filename
 	echo "Running ${spider} - check $log_filename for logs and $output_filename for output"
 	time scrapy crawl \
-		--loglevel=INFO --logfile=$log_filename \
+		--loglevel=$LOG_LEVEL \
+		--logfile=$log_filename \
+		$OPTS \
 		$spider \
 		-t "csv.gz" \
 		-o $output_filename
 }
 
 if [ ! -z "$1" ]; then
-	run_spider $1
+	spiders="$@"
 else
-	for spider in pagamento pagamento_historico execucao_despesa orcamento_despesa; do
-		run_spider $spider
-	done
+	spiders="$(python transparenciagovbr/utils/print_spider_names.py)"
 fi
+for spider in $spiders; do
+	run_spider $spider
+done

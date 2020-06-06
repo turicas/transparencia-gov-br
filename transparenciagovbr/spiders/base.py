@@ -1,6 +1,7 @@
 import csv
 import io
 import zipfile
+from urllib.parse import urlparse
 
 import scrapy
 from cached_property import cached_property
@@ -15,7 +16,16 @@ EM_SIGILO_STRINGS = (
 )
 
 class TransparenciaBaseSpider(scrapy.Spider):
-    allowed_domains = ["portaldatransparencia.gov.br"]
+    allowed_domains = [
+        "portaldatransparencia.gov.br",
+        "transparencia.gov.br",
+        "data.brasil.io"
+    ]
+    mirror_url = "https://data.brasil.io/mirror/transparenciagovbr/{dataset}/{filename}"
+
+    def __init__(self, use_mirror="False", *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.use_mirror = use_mirror.lower() == "true"
 
     @cached_property
     def schema(self):
@@ -29,9 +39,13 @@ class TransparenciaBaseSpider(scrapy.Spider):
         for date in date_range(
             start=self.start_date, stop=self.end_date, interval=self.publish_frequency
         ):
-            yield scrapy.Request(
-                self.base_url.format(**date_to_dict(date)), callback=self.parse_zip
-            )
+            url = self.base_url.format(**date_to_dict(date))
+            if self.use_mirror:
+                url = self.mirror_url.format(
+                    dataset=self.name,
+                    filename=urlparse(url).path.rsplit("/", maxsplit=1)[-1]
+                )
+            yield scrapy.Request(url, callback=self.parse_zip)
 
     def convert_row(self, row):
         em_sigilo = "f"

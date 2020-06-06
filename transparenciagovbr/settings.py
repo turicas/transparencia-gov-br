@@ -95,3 +95,4 @@ FEED_EXPORTERS = {"csv.gz": "transparenciagovbr.exporters.GzipCsvItemExporter"}
 FEED_FORMAT = "csv.gz"
 
 REPOSITORY_PATH = Path(__file__).parent.parent
+DOWNLOAD_PATH = REPOSITORY_PATH / "data" / "download"

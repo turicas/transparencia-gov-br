@@ -8,11 +8,12 @@
 .directory
 .env
 .idea/*
-.tox
 .scrapy
+.tox
 MANIFEST
 build/*
+data/*
 dist/*
 download.sh
-data/*
+mirror.sh
 reg_settings.py
