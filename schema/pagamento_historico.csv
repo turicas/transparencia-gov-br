@@ -10,9 +10,9 @@ Código Órgão Superior,codigo_orgao_superior,custom_integer,integer
 Código Programa,codigo_programa,custom_integer,integer
 Código Subfunção,codigo_subfuncao,custom_integer,integer
 Código Unidade Gestora,codigo_unidade_gestora,custom_integer,integer
-Data Pagamento,data_pagamento,date,date
+Data Pagamento,data_pagamento,brazilian_date,date
 Nome Elemento Despesa,elemento_despesa,text,text
-(coluna criada pelo script),em_sigilo,bool,
+(coluna criada pelo script),em_sigilo,bool,bool
 Nome Favorecido,favorecido,text,text
 Nome Função,funcao,text,text
 Gestão Pagamento,gestao_pagamento,text,text

@@ -9,17 +9,17 @@ from cached_property import cached_property
 from transparenciagovbr.utils.date import date_range, date_to_dict
 from transparenciagovbr.utils.fields import field_mapping_from_csv, load_schema
 
-
 EM_SIGILO_STRINGS = (
     "Detalhamento das informações bloqueado.",
     "Informações protegidas por sigilo, nos termos da legislação, para garantia da segurança da sociedade e do Estado",
 )
 
+
 class TransparenciaBaseSpider(scrapy.Spider):
     allowed_domains = [
         "portaldatransparencia.gov.br",
         "transparencia.gov.br",
-        "data.brasil.io"
+        "data.brasil.io",
     ]
     mirror_url = "https://data.brasil.io/mirror/transparenciagovbr/{dataset}/{filename}"
 
@@ -43,7 +43,7 @@ class TransparenciaBaseSpider(scrapy.Spider):
             if self.use_mirror:
                 url = self.mirror_url.format(
                     dataset=self.name,
-                    filename=urlparse(url).path.rsplit("/", maxsplit=1)[-1]
+                    filename=urlparse(url).path.rsplit("/", maxsplit=1)[-1],
                 )
             yield scrapy.Request(url, callback=self.parse_zip)
 
@@ -65,12 +65,16 @@ class TransparenciaBaseSpider(scrapy.Spider):
             try:
                 new[field_name] = self.schema[field_name].deserialize(value)
             except ValueError:
-                self.logger.error(f"Wrong value for {field_name} ({self.schema[field_name].__name__}): {repr(value)}")
+                self.logger.error(
+                    f"Wrong value for {field_name} ({self.schema[field_name].__name__}): {repr(value)}"
+                )
                 return None
         new["em_sigilo"] = em_sigilo
         if row:
             missing_schema_keys = ", ".join(sorted(row.keys()))
-            self.logger.warning(f"Missing following keys in schema: {missing_schema_keys}")
+            self.logger.warning(
+                f"Missing following keys in schema: {missing_schema_keys}"
+            )
         if keys_not_found:
             keys_not_found = ", ".join(sorted(keys_not_found))
             self.logger.warning(f"Missing following keys in CSV: {keys_not_found}")

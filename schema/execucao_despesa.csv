@@ -16,7 +16,7 @@ Código Subfução,codigo_subfucao,custom_integer,integer
 Código Unidade Gestora,codigo_unidade_gestora,custom_integer,integer
 Código Unidade Orçamentária,codigo_unidade_orcamentaria,custom_integer,integer
 Nome Elemento de Despesa,elemento_despesa,text,text
-(coluna criada pelo script),em_sigilo,bool,
+(coluna criada pelo script),em_sigilo,bool,bool
 Nome Função,funcao,text,text
 Nome Gestão,gestao,text,text
 Nome Grupo de Despesa,grupo_despesa,text,text

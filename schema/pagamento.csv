@@ -14,15 +14,15 @@ Código Plano Orçamentário,codigo_plano_orcamentario,text,text
 Código Programa Governo,codigo_programa_governo,text,text
 Código Tipo Documento,codigo_tipo_documento,text,text
 Código Unidade Gestora,codigo_unidade_gestora,custom_integer,integer
-Data Emissão,data_emissao,date,date
+Data Emissão,data_emissao,brazilian_date,date
 Elemento de Despesa,elemento_de_despesa,text,text
-(coluna criada pelo script),em_sigilo,bool,
+(coluna criada pelo script),em_sigilo,bool,bool
 Extraorçamentário,extraorcamentario,text,text
 Favorecido,favorecido,text,text
 Gestão,gestao,text,text
 Grupo de Despesa,grupo_de_despesa,text,text
 Modalidade de Aplicação,modalidade_de_aplicacao,text,text
-Observação,observacao,text,text
+Observação,observacao,custom_text,text
 Órgão,orgao,text,text
 Órgão Superior,orgao_superior,text,text
 Plano Orçamentário,plano_orcamentario,text,text

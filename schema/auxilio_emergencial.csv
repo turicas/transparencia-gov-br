@@ -1,0 +1,15 @@
+original_name,field_name,internal_field_type,field_type
+MÊS DISPONIBILIZAÇÃO,mes_disponibilizacao,integer,integer
+UF,uf,text,text
+CÓDIGO MUNICÍPIO IBGE,codigo_ibge_municipio,integer,integer
+NOME MUNICÍPIO,municipio,text,text
+NIS BENEFICIÁRIO,nis_beneficiario,custom_integer,integer
+CPF BENEFICIÁRIO,cpf_beneficiario,cpf,text
+NOME BENEFICIÁRIO,beneficiario,text,text
+NIS RESPONSÁVEL,nis_responsavel,custom_integer,integer
+CPF RESPONSÁVEL,cpf_responsesavel,cpf,text
+NOME RESPONSÁVEL,responsavel,custom_text,text
+ENQUADRAMENTO,enquadramento,text,text
+PARCELA,parcela,custom_integer,integer
+OBSERVAÇÃO,observacao,custom_text,text
+VALOR BENEFÍCIO,valor,money_real,decimal
