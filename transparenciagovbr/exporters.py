@@ -23,9 +23,12 @@ class GzipCsvItemExporter(CsvItemExporter):
     `-t csv.gz` to the command above)
     """
 
-    def __init__(self, stream, **kwargs):
-        self.gzfile = gzip.GzipFile(fileobj=stream)
-        super(GzipCsvItemExporter, self).__init__(self.gzfile, **kwargs)
+    def __init__(self, fobj, **kwargs):
+        filename = fobj.name
+        fobj.close()
+        fobj = open(filename, mode="wb", buffering=8 * 1024 * 1024)
+        self.gzfile = gzip.GzipFile(fileobj=fobj)
+        super().__init__(self.gzfile, **kwargs)
 
     def finish_exporting(self):
         self.gzfile.close()
