@@ -3,3 +3,4 @@ https://github.com/turicas/rows/archive/develop.zip#egg=rows
 requests  # TODO: remove when dependency bug in rows is fixed
 s3cmd
 scrapy
+tqdm
