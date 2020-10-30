@@ -15,15 +15,15 @@ class PagamentoHistSpider(TransparenciaBaseSpider):
     publish_frequency = "monthly"
     schema_filename = "pagamento_historico.csv"
 
-    def parse_zip(self, response):
+    def parse_zip_response(self, response):
         zf = zipfile.ZipFile(io.BytesIO(response.body))
         assert len(zf.filelist) == 1
         fobj = NotNullTextWrapper(
-            zf.open(zf.filelist[0].filename), encoding="iso-8859-1"
+            zf.open(zf.filelist[0].filename), encoding=self.encoding
         )
         reader = csv.DictReader(fobj, delimiter="\t")
 
         for row in reader:
-            new = self.convert_row(row)
+            new = self.schema.deserialize(row)
             if new is not None:
                 yield new
