@@ -25,6 +25,10 @@ Apenas um spider:
 > Nota: consule os nomes dos spiders disponíveis em
 > [transparenciagovbr/spiders/](transparenciagovbr/spiders/]).
 
+Pode ser interessante rodar algum script de extração fora de um spider (por
+limitações do scrapy). Veja os scripts disponíveis na pasta `scripts` e
+execute-os com o parâmetro `--help` para ver as opções disponíveis.
+
 
 ## Importando no PostgreSQL
 
