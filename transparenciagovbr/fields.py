@@ -1,4 +1,5 @@
 from rows.fields import (
+    BoolField,
     DateField,
     DecimalField,
     IntegerField,
@@ -6,6 +7,12 @@ from rows.fields import (
     as_string,
     is_null,
 )
+
+
+class BrazilianBoolField(BoolField):
+    name = "brazilian_bool"
+    TRUE_VALUES = ("SIM", "sim", "Sim")
+    FALSE_VALUES = ("NÃO", "NAO", "Não", "Nao", "não", "nao")
 
 
 class BrazilianDateField(DateField):
