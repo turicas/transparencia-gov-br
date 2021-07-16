@@ -16,7 +16,7 @@ Código Tipo Documento,codigo_tipo_documento,text,text
 Código Unidade Gestora,codigo_unidade_gestora,custom_integer,integer
 Data Emissão,data_emissao,brazilian_date,date
 Elemento de Despesa,elemento_de_despesa,text,text
-(coluna criada pelo script),em_sigilo,bool,bool
+,em_sigilo,bool,bool
 Extraorçamentário,extraorcamentario,text,text
 Favorecido,favorecido,text,text
 Gestão,gestao,text,text

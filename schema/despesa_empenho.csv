@@ -1,0 +1,64 @@
+field_name,field_type,internal_field_type,original_name
+id,integer,integer,Id Empenho
+codigo,text,text,Código Empenho
+codigo_resumido,text,text,Código Empenho Resumido
+data_emissao,text,text,Data Emissão
+codigo_tipo_documento,text,text,Código Tipo Documento
+tipo_documento,text,text,Tipo Documento
+tipo,text,text,Tipo Empenho
+especie,text,text,Espécie Empenho
+codigo_orgao_superior,text,text,Código Órgão Superior
+orgao_superior,text,text,Órgão Superior
+codigo_orgao,text,text,Código Órgão
+orgao,text,text,Órgão
+codigo_unidade_gestora,text,text,Código Unidade Gestora
+unidade_gestora,text,text,Unidade Gestora
+codigo_gestao,text,text,Código Gestão
+gestao,text,text,Gestão
+codigo_favorecido,text,text,Código Favorecido
+favorecido,text,text,Favorecido
+observacao,text,text,Observação
+codigo_esfera_orcamentaria,text,text,Código Esfera Orçamentária
+esfera_orcamentaria,text,text,Esfera Orçamentária
+codigo_tipo_credito,text,text,Código Tipo Crédito
+tipo_credito,text,text,Tipo Crédito
+codigo_grupo_fonte_recurso,text,text,Código Grupo Fonte Recurso
+grupo_fonte_recurso,text,text,Grupo Fonte Recurso
+codigo_fonte_recurso,text,text,Código Fonte Recurso
+fonte_recurso,text,text,Fonte Recurso
+codigo_unidade_orcamentaria,text,text,Código Unidade Orçamentária
+unidade_orcamentaria,text,text,Unidade Orçamentária
+codigo_funcao,text,text,Código Função
+funcao,text,text,Função
+codigo_subfuncao,text,text,Código SubFunção
+subfuncao,text,text,SubFunção
+codigo_programa,text,text,Código Programa
+programa,text,text,Programa
+codigo_acao,text,text,Código Ação
+acao,text,text,Ação
+linguagem_cidada,text,text,Linguagem Cidadã
+codigo_subtitulo_localizador,text,text,Código Subtítulo (Localizador)
+subtitulo_localizador,text,text,Subtítulo (Localizador)
+codigo_plano_orcamentario,text,text,Código Plano Orçamentário
+plano_orcamentario,text,text,Plano Orçamentário
+codigo_programa_governo,text,text,Código Programa Governo
+programa_governo,text,text,Nome Programa Governo
+autor_emenda,text,text,Autor Emenda
+codigo_categoria_de_despesa,text,text,Código Categoria de Despesa
+categoria_despesa,text,text,Categoria de Despesa
+codigo_grupo_despesa,text,text,Código Grupo de Despesa
+grupo_despesa,text,text,Grupo de Despesa
+codigo_modalidade_aplicacao,text,text,Código Modalidade de Aplicação
+modalidade_aplicacao,text,text,Modalidade de Aplicação
+codigo_elemento_despesa,text,text,Código Elemento de Despesa
+elemento_despesa,text,text,Elemento de Despesa
+processo,text,text,Processo
+modalidade_licitacao,text,text,Modalidade de Licitação
+inciso,text,text,Inciso
+amparo,text,text,Amparo
+referencia_dispensa_inexigibilidade,text,text,Referência de Dispensa ou Inexigibilidade
+codigo_convenio,text,text,Código Convênio
+contrato_repasse_parceria_outros,text,text,Contrato de Repasse / Termo de Parceria / Outros
+valor_original,decimal,money_real,Valor Original do Empenho
+valor_reais,decimal,money_real,Valor do Empenho Convertido pra R$
+valor_conversao,decimal,money_real,Valor Utilizado na Conversão

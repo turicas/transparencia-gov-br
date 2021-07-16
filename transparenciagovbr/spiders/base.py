@@ -12,20 +12,39 @@ from transparenciagovbr.utils.fields import Schema
 from transparenciagovbr.utils.io import parse_zip
 
 
+def parse_csv_rows(filename_or_fobj, inner_filename_suffix, encoding, schema):
+    data = parse_zip(
+        filename_or_fobj=filename_or_fobj,
+        inner_filename_suffix=inner_filename_suffix,
+        encoding=encoding,
+    )
+    for row in data:
+        new = schema.deserialize(row)
+        if new is not None:
+            yield new
+
+
 class TransparenciaBaseSpider(scrapy.Spider):
     allowed_domains = [
         "portaldatransparencia.gov.br",
         "transparencia.gov.br",
         "data.brasil.io",
     ]
+    custom_settings = {
+        "USER_AGENT": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.93 Safari/537.36",
+    }
     encoding = "iso-8859-1"
     mirror_url = "https://data.brasil.io/mirror/transparenciagovbr/{dataset}/{filename}"
+
 
     def __init__(self, use_mirror="False", save_file="True", *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.use_mirror = use_mirror.lower() == "true"
         self.save_file = save_file.lower() == "true"
-        self.schema = Schema(self.schema_filename)
+
+    @property
+    def schema(self):
+        return Schema(self.schema_filename)
 
     def make_filename(self, url):
         return settings.DOWNLOAD_PATH / self.name / urlparse(url).path.rsplit("/", maxsplit=1)[-1]
@@ -56,12 +75,9 @@ class TransparenciaBaseSpider(scrapy.Spider):
             with open(filename, mode="wb") as fobj:
                 fobj.write(response.body)
 
-        data = parse_zip(
+        yield from parse_csv_rows(
             filename_or_fobj=io.BytesIO(response.body),
             inner_filename_suffix=self.filename_suffix,
             encoding=self.encoding,
+            schema=self.schema,
         )
-        for row in data:
-            new = self.schema.deserialize(row)
-            if new is not None:
-                yield new

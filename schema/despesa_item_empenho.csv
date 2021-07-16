@@ -1,0 +1,26 @@
+field_name,field_type,internal_field_type,original_name
+categoria_despesa,text,text,Categoria de Despesa
+codigo_categoria_despesa,text,text,Código Categoria de Despesa
+codigo_elemento_despesa,integer,text,Código Elemento de Despesa
+codigo_empenho,text,text,Código Empenho
+codigo_grupo_despesa,text,text,Código Grupo de Despesa
+codigo_modalidade_aplicacao,text,text,Código Modalidade de Aplicação
+codigo_subelemento_despesa,integer,text,Código SubElemento de Despesa
+descricao,text,text,Descrição
+elemento_despesa,text,text,Elemento de Despesa
+em_sigilo,bool,bool,(coluna criada pelo script)
+grupo_despesa,text,text,Grupo de Despesa
+id_empenho,integer,integer,Id Empenho
+modalidade_aplicacao,text,text,Modalidade de Aplicação
+quantidade,decimal,money_real,Quantidade
+subelemento_despesa,text,text,SubElemento de Despesa
+valor_total,decimal,money_real,Valor Total
+valor_unitario,decimal,money_real,Valor Unitário
+sequencial,integer,integer,Sequencial
+valor_atual,decimal,money_real,Valor Atual
+data,date,date,
+unidade,text,text,
+item,text,text,
+marca,text,text,
+item_processo,text,text,
+item_material,text,text,

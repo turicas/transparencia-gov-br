@@ -9,7 +9,7 @@ CÓDIGO ÓRGÃO SUPERIOR,codigo_orgao_superior,custom_integer,integer
 CÓDIGO PROGRAMA ORÇAMENTÁRIO,codigo_programa_orcamentario,custom_integer,integer
 CÓDIGO SUBFUNÇÃO,codigo_subfuncao,custom_integer,integer
 CÓDIGO UNIDADE ORÇAMENTÁRIA,codigo_unidade_orcamentaria,custom_integer,integer
-(coluna criada pelo script),em_sigilo,bool,bool
+,em_sigilo,bool,bool
 EXERCÍCIO,exercicio,text,text
 NOME AÇÃO,nome_acao,text,text
 NOME CATEGORIA ECONÔMICA,nome_categoria_economica,text,text
