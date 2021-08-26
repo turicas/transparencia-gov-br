@@ -23,7 +23,7 @@ def parse_description(text):
     """Extrai dados estruturados do texto da descrição"""
 
     new = {
-        "descricao": "",
+        "descricao_restante": "",
         "item": "",
         "item_material": "",
         "item_processo": "",
@@ -51,7 +51,7 @@ def parse_description(text):
     new["item"] = item
     rest = part2.after(",")
 
-    new["descricao"] = rest.until("MARCA:").strip()
+    new["descricao_restante"] = rest.until("MARCA:").strip()
     rest = rest.after("MARCA:")
 
     new["marca"] = rest.until("ITEM DO PROCESSO:").strip()
@@ -73,7 +73,7 @@ def extract_extra_fields(row):
         "marca": None,
         "item_processo": None,
         "item_material": None,
-        "descricao": None,
+        "descricao_restante": None,
     }
     if row["elemento_despesa"] != "MATERIAL DE CONSUMO":
         return new
