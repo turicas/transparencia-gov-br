@@ -1,0 +1,9 @@
+field_name,field_type,internal_field_type,original_name
+id_empenho,integer,integer,Id Empenho
+codigo_empenho,integer,text,Código Empenho
+sequencial,integer,text,Sequencial
+tipo_operacao,text,text,Tipo Operação
+data_operacao,text,text,Data Operação
+quantidade_item,decimal,money_real,Quantidade Item
+valor_unitario_item,decimal,money_real,Valor Unitário Item
+valor_total_item,decimal,money_real,Valor Total Item
