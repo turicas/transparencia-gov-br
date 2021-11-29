@@ -110,3 +110,12 @@ class DespesaEmpenhoSpider(DespesaMixin, TransparenciaBaseSpider):
     publish_frequency = "daily"
     filename_suffix = "_Despesas_Empenho.csv"
     schema_filename = "despesa_empenho.csv"
+
+class Spider(DespesaMixin, TransparenciaBaseSpider):
+    name = "despesa_item_historico"
+    base_url = "http://transparencia.gov.br/download-de-dados/despesas/{year}{month:02d}{day:02d}"
+    start_date = datetime.date(2021, 1, 1)
+    end_date = today()
+    publish_frequency = "daily"
+    filename_suffix = "_Despesas_ItemEmpenhoHistorico.csv"
+    schema_filename = "despesa_item_empenho_historico.csv"
