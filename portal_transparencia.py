@@ -34,21 +34,14 @@ class BaseDownloader:
 
     @classmethod
     def get_name(cls):
-        raise NotImplementedError()
-
-    @classmethod
-    def _name(cls):
-        if not hasattr(cls, "__name"):
-            try:
-                cls.__name = cls.get_name()
-            except NotImplementedError:
-                cls.__name = cls.name
-        return cls.__name
+        if cls.name is None:
+            raise NotImplementedError()
+        return cls.name
 
     @classmethod
     def make_filename(cls, download_path, url):
         filename = urlparse(url).path.rsplit("/", maxsplit=1)[-1] + ".zip"
-        return Path(download_path) / cls._name() / filename
+        return Path(download_path) / cls.get_name() / filename
 
     @classmethod
     def urls(cls, start_date, end_date):
@@ -69,6 +62,7 @@ class BaseDownloader:
             max_concurrent_downloads=2,
             max_connections_per_download=1,
             split_download_parts=1,
+            user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
         )
         for url in cls.urls(start_date=start_date or cls.start_date, end_date=end_date or cls.end_date):
             downloader.add(
@@ -92,12 +86,15 @@ class BaseDownloader:
         unlogged=False,
         columnar=False,
     ):
-        table_name = table_name or cls._name()
+        table_name = table_name or cls.get_name()
 
         rows_imported = 0
         pgcopy = PostgresCopy(database_url)
         for url in cls.urls(start_date=start_date or cls.start_date, end_date=end_date or cls.end_date):
             zip_filename = cls.make_filename(download_path, url)
+            if not zip_filename.exists():
+                print(f"WARNING: file {zip_filename} not found - skipping")
+                continue
             zf = zipfile.ZipFile(str(zip_filename))
 
             selected_file_info = None
@@ -274,7 +271,7 @@ if __name__ == "__main__":
     import datetime
     import os
 
-    datasets = {cls._name(): cls for cls in subclasses(BaseDownloader) if not cls.__name__.startswith("Base")}
+    datasets = {cls.get_name(): cls for cls in subclasses(BaseDownloader) if not cls.__name__.startswith("Base")}
     parser = argparse.ArgumentParser()
     parser.add_argument("--download-path")
     parser.add_argument("--start-date")
