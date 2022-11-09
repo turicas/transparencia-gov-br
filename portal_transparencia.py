@@ -57,6 +57,10 @@ class BaseDownloader:
         raise NotImplementedError()
 
     @classmethod
+    def get_date_range_from_url(cls, url):
+        return urlparse(url).path.rsplit("/", maxsplit=1)[-1]
+
+    @classmethod
     def download(cls, download_path, start_date=None, end_date=None):
         downloader = Aria2cDownloader(
             max_concurrent_downloads=2,
@@ -80,13 +84,14 @@ class BaseDownloader:
         database_url,
         start_date=None,
         end_date=None,
-        table_name=None,
+        table_name_pattern=None,
         encoding="iso-8859-15",
         dialect="excel-semicolon",
         unlogged=False,
         columnar=False,
+        delete_files_after=False,
     ):
-        table_name = table_name or cls.get_name()
+        downloader = cls.get_name()
 
         rows_imported = 0
         pgcopy = PostgresCopy(database_url)
@@ -117,6 +122,10 @@ class BaseDownloader:
             )
 
             progress_bar = ProgressBar(prefix=f"Importing {Path(zip_filename).name}", unit="bytes")
+            table_name = table_name_pattern.format(
+                downloader=downloader,
+                date_range=cls.get_date_range_from_url(url),
+            )
             result = pgcopy.import_from_fobj(
                 fobj=zf.open(selected_file_info.filename),
                 table_name=table_name,
@@ -130,6 +139,8 @@ class BaseDownloader:
             )
             progress_bar.close()
             rows_imported += result["rows_imported"]
+            if delete_files_after:
+                zip_filename.unlink()
         print(f"Total rows imported: {rows_imported}")
 
 
@@ -209,7 +220,7 @@ class PagamentoHistoricoDownloader(BaseDownloader):
 
 class BaseServidorDownloader(BaseDownloader):
     dataset = None
-    start_date = last_month()
+    start_date = datetime.date(2013, 1, 1)
     end_date = last_month()
     publish_frequency = "monthly"
     filename_suffix = "_Cadastro.csv"
@@ -222,6 +233,10 @@ class BaseServidorDownloader(BaseDownloader):
     @classmethod
     def get_base_url(cls, year, month, day=None):
         return f"https://transparencia.gov.br/download-de-dados/servidores/{year:04d}{month:02d}_{cls.dataset}"
+
+    @classmethod
+    def get_date_range_from_url(cls, url):
+        return urlparse(url).path.rsplit("/", maxsplit=1)[-1].split("_")[0]
 
 
 class ServidorAposentadosBacenDownloader(BaseServidorDownloader):
@@ -273,7 +288,11 @@ if __name__ == "__main__":
 
     datasets = {cls.get_name(): cls for cls in subclasses(BaseDownloader) if not cls.__name__.startswith("Base")}
     parser = argparse.ArgumentParser()
+    parser.add_argument("--access-method", default="heap", choices=["heap", "columnar"])
+    parser.add_argument("--download-only", action="store_true")
+    parser.add_argument("--delete-files-after", action="store_true")
     parser.add_argument("--download-path")
+    parser.add_argument("--table-name-pattern", default="{downloader}_orig")
     parser.add_argument("--start-date")
     parser.add_argument("--end-date")
     parser.add_argument("--database-url")
@@ -296,11 +315,13 @@ if __name__ == "__main__":
     for dataset in args.dataset:
         Downloader = datasets[dataset]
         Downloader.download(download_path, start_date, end_date)
-        Downloader.import_psql(
-            download_path,
-            database_url,
-            table_name=f"{Downloader.get_name()}_orig",
-            start_date=start_date,
-            end_date=end_date,
-            columnar=True,
-        )
+        if not args.download_only:
+            Downloader.import_psql(
+                download_path,
+                database_url,
+                table_name_pattern=args.table_name_pattern,
+                start_date=start_date,
+                end_date=end_date,
+                columnar=args.access_method == "columnar",
+                delete_files_after=args.delete_files_after,
+            )
