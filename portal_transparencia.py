@@ -358,7 +358,7 @@ class ServidorBacenDownloader(BaseServidorDownloader):
 
 class ServidorSiapeDownloader(BaseServidorDownloader):
     dataset = "Servidores_SIAPE"
-    # TODO: schema_filename = "servidor_siape.csv"
+    schema_filename = "servidores_siape.csv"
     start_date = datetime.date(2013, 1, 1)
 
 
