@@ -293,12 +293,12 @@ class PagamentoHistoricoDownloader(BaseDownloader):
 
 
 class BaseServidorDownloader(BaseDownloader):
-    dataset = None
-    start_date = datetime.date(2013, 1, 1)
+    dataset = None  # Must define in subclass
     end_date = last_month()
-    publish_frequency = "monthly"
     filename_suffix = "_Cadastro.csv"
-    # TODO: implement schema?
+    publish_frequency = "monthly"
+    schema_filename = None  # Must define in subclass
+    start_date = None  # Must define in subclass
 
     @classmethod
     def get_name(cls):
@@ -320,7 +320,8 @@ class ServidorAposentadosBacenDownloader(BaseServidorDownloader):
 
 class ServidorAposentadosSiapeDownloader(BaseServidorDownloader):
     dataset = "Aposentados_SIAPE"
-    # TODO: schema_filename = "aposentado_siape.csv"
+    schema_filename = "aposentados_siape.csv"
+    start_date = datetime.date(2020, 1, 1)
 
 
 class ServidorMilitaresDownloader(BaseServidorDownloader):
@@ -335,8 +336,8 @@ class ServidorPensionistasBacenDownloader(BaseServidorDownloader):
 
 class ServidorPensionistasDefesaDownloader(BaseServidorDownloader):
     dataset = "Pensionistas_DEFESA"
-    start_date = datetime.date(2020, 1, 1)
     schema_filename = "pensionista_defesa.csv"
+    start_date = datetime.date(2020, 1, 1)
 
 
 class ServidorPensionistasSiapeDownloader(BaseServidorDownloader):
