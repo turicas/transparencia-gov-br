@@ -221,25 +221,30 @@ class AuxilioEmergencialDownloader(BaseDownloader):
     # TODO: fix city name
 
 
-class DespesaEmpenhoDownloader(BaseDownloader):
-    name = "despesa_empenho"
+class BaseDespesaDownloader(BaseDownloader):
     base_url = "https://transparencia.gov.br/download-de-dados/despesas/{year}{month:02d}{day:02d}"
     start_date = datetime.date(2013, 3, 31)
     end_date = today()
     publish_frequency = "daily"
+
+
+class DespesaEmpenhoDownloader(BaseDespesaDownloader):
+    name = "despesa_empenho"
     filename_suffix = "_Despesas_Empenho.csv"
     # TODO: schema_filename = "despesa_empenho.csv"
 
 
-class DespesaItemEmpenhoDownloader(BaseDownloader):
+class DespesaItemEmpenhoDownloader(BaseDespesaDownloader):
     name = "despesa_item_empenho"
-    base_url = "https://transparencia.gov.br/download-de-dados/despesas/{year}{month:02d}{day:02d}"
-    start_date = datetime.date(2013, 3, 31)
-    end_date = today()
-    publish_frequency = "daily"
     filename_suffix = "_Despesas_ItemEmpenho.csv"
     # TODO: parse row["descricao"] if row["elemento_despesa"] == "MATERIAL DE CONSUMO"
     # TODO: schema_filename = "despesa_item_empenho.csv"
+
+
+class PagamentoDownloader(BaseDespesaDownloader):
+    name = "pagamento"
+    filename_suffix = "_Despesas_Pagamento.csv"
+    # TODO: schema_filename = "pagamento.csv"
 
 
 class DespesaFavorecidoDownloader(BaseDownloader):
@@ -270,16 +275,6 @@ class OrcamentoDespesaDownloader(BaseDownloader):
     publish_frequency = "yearly"
     filename_suffix = "_OrcamentoDespesa.zip.csv"
     # TODO: schema_filename = "orcamento_despesa.csv"
-
-
-class PagamentoDownloader(BaseDownloader):
-    name = "pagamento"
-    base_url = "https://transparencia.gov.br/download-de-dados/despesas/{year}{month:02d}{day:02d}"
-    start_date = datetime.date(2013, 3, 31)
-    end_date = today()
-    publish_frequency = "daily"
-    filename_suffix = "_Despesas_Pagamento.csv"
-    # TODO: schema_filename = "pagamento.csv"
 
 
 class PagamentoHistoricoDownloader(BaseDownloader):
@@ -316,6 +311,7 @@ class BaseServidorDownloader(BaseDownloader):
 class ServidorAposentadosBacenDownloader(BaseServidorDownloader):
     dataset = "Aposentados_BACEN"
     # TODO: schema_filename = "aposentado_bacen.csv"
+    start_date = datetime.date(2020, 1, 1)
 
 
 class ServidorAposentadosSiapeDownloader(BaseServidorDownloader):
@@ -327,11 +323,13 @@ class ServidorAposentadosSiapeDownloader(BaseServidorDownloader):
 class ServidorMilitaresDownloader(BaseServidorDownloader):
     dataset = "Militares"
     # TODO: schema_filename = "servidor_militar.csv"
+    start_date = datetime.date(2013, 1, 1)
 
 
 class ServidorPensionistasBacenDownloader(BaseServidorDownloader):
     dataset = "Pensionistas_BACEN"
     # TODO: schema_filename = "pensionista_bacen.csv"
+    start_date = datetime.date(2020, 1, 1)
 
 
 class ServidorPensionistasDefesaDownloader(BaseServidorDownloader):
@@ -343,21 +341,25 @@ class ServidorPensionistasDefesaDownloader(BaseServidorDownloader):
 class ServidorPensionistasSiapeDownloader(BaseServidorDownloader):
     dataset = "Pensionistas_SIAPE"
     # TODO: schema_filename = "pensionista_siape.csv"
+    start_date = datetime.date(2020, 1, 1)
 
 
 class ServidorReservaReformaMilitaresDownloader(BaseServidorDownloader):
     dataset = "Reserva_Reforma_Militares"
     # TODO: schema_filename = "reserva_militar.csv"
+    start_date = datetime.date(2020, 1, 1)
 
 
 class ServidorBacenDownloader(BaseServidorDownloader):
     dataset = "Servidores_BACEN"
     # TODO: schema_filename = "servidor_bacen.csv"
+    start_date = datetime.date(2013, 1, 1)
 
 
 class ServidorSiapeDownloader(BaseServidorDownloader):
     dataset = "Servidores_SIAPE"
     # TODO: schema_filename = "servidor_siape.csv"
+    start_date = datetime.date(2013, 1, 1)
 
 
 def subclasses(cls):
