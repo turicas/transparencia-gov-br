@@ -32,6 +32,7 @@ Os datasets atualmente disponíveis são:
 - `pensionistas_bacen`
 - `pensionistas_defesa`
 - `pensionistas_siape`
+- `pessoa_exposta_politicamente`
 - `reserva_reforma_militares`
 - `servidores_bacen`
 - `servidores_siape`

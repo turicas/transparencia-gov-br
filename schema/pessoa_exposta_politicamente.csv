@@ -1,0 +1,20 @@
+"original_name","original_type","transformation","field_name","field_type"
+,"text","person_uuid(REGEXP_REPLACE(""cpf"", '[./-]', '', 'g'), TRIM(REPLACE(""nome_pep"", '(CUMULATIVAMENTE)', '')))","pessoa_uuid","uuid"
+"CPF","text","REGEXP_REPLACE(""cpf"", '[./-]', '', 'g')","cpf","text"
+"Nome_PEP","text","TRIM(REPLACE(""nome_pep"", '(CUMULATIVAMENTE)', ''))","nome","text"
+"Sigla_Função","text","clean_text(""sigla_funcao"")","funcao_sigla","text"
+"Descrição_Função","text","clean_text(""descricao_funcao"")","funcao","text"
+"Nível_Função","text","clean_text(""nivel_funcao"")","funcao_nivel","text"
+"Nome_Órgão","text","clean_text(""nome_orgao"")","orgao","text"
+"Data_Início_Exercício","text","CASE
+  WHEN ""data_inicio_exercicio"" = 'Não informada' THEN NULL
+  ELSE TO_DATE(""data_inicio_exercicio"", 'dd/mm/yyyy')
+END","data_inicio_exercicio","date"
+"Data_Fim_Exercício","text","CASE
+  WHEN ""data_fim_exercicio"" = 'Não informada' THEN NULL
+  ELSE TO_DATE(""data_fim_exercicio"", 'dd/mm/yyyy')
+END","data_fim_exercicio","date"
+"Data_Fim_Carência","text","CASE
+  WHEN ""data_fim_carencia"" = 'Não informada' THEN NULL
+  ELSE TO_DATE(""data_fim_carencia"", 'dd/mm/yyyy')
+END","data_fim_carencia","date"

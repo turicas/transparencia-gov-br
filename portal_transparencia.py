@@ -226,6 +226,16 @@ class AuxilioEmergencialDownloader(BaseDownloader):
     # TODO: fix city name
 
 
+class PessoaExpostaPoliticamenteDownloader(BaseDownloader):
+    name = "pessoa_exposta_politicamente"
+    base_url = "https://transparencia.gov.br/download-de-dados/pep/{year}{month:02d}"
+    start_date = datetime.date(2023, 12, 1)
+    end_date = last_month()
+    publish_frequency = "monthly"
+    filename_suffix = "_PEP.csv"
+    schema_filename = "pessoa_exposta_politicamente.csv"
+
+
 class BaseDespesaDownloader(BaseDownloader):
     base_url = "https://transparencia.gov.br/download-de-dados/despesas/{year}{month:02d}{day:02d}"
     start_date = datetime.date(2013, 3, 31)
