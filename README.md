@@ -10,49 +10,31 @@ pip install -r requirements.txt
 
 ## Rodando
 
-Todos os spiders:
+Para baixar e converter um dataset, execute:
 
 ```shell
-./run.sh
+python portal_transparencia.py <nome-do-dataset>
 ```
 
-Apenas um spider:
+Os datasets atualmente disponíveis são:
 
-```shell
-./run.sh <nome-do-spider>
-```
+- `aposentados_bacen`
+- `aposentados_siape`
+- `auxilio_emergencial`
+- `despesa_empenho`
+- `despesa_favorecido`
+- `despesa_item_empenho`
+- `execucao_despesa`
+- `militares`
+- `orcamento_despesa`
+- `pagamento_historico`
+- `pagamento`
+- `pensionistas_bacen`
+- `pensionistas_defesa`
+- `pensionistas_siape`
+- `reserva_reforma_militares`
+- `servidores_bacen`
+- `servidores_siape`
 
-> Nota: consule os nomes dos spiders disponíveis em
-> [transparenciagovbr/spiders/](transparenciagovbr/spiders/]).
-
-Pode ser interessante rodar algum script de extração fora de um spider (por
-limitações do scrapy). Veja os scripts disponíveis na pasta `scripts` e
-execute-os com o parâmetro `--help` para ver as opções disponíveis.
-
-
-## Importando no PostgreSQL
-
-Antes, instale as dependências, rode os spiders e crie uma varíavel com a URI
-de conexão com o banco:
-
-```shell
-pip install psycopg2-binary tqdm
-./run.sh
-export POSTGRESQL_URI="postgres://usuario:senha@host:porta/banco"
-```
-
-Depois, execute o script para importar todas as tabelas:
-
-
-```shell
-./import-postgresql.sh
-```
-
-Ou apenas a tabela de um spider específico:
-
-```shell
-./import-postgresql.sh <nome-do-spider>
-```
-
-> Nota: consule os nomes dos spiders disponíveis em
-> [transparenciagovbr/spiders/](transparenciagovbr/spiders/]).
+Execute `python portal_transparencia.py --help` outras configurações (como datas de início/fim, caminho para salvar os
+arquivos etc.).
