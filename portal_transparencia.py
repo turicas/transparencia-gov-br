@@ -381,6 +381,7 @@ if __name__ == "__main__":
     datasets = {cls.get_name(): cls for cls in subclasses(BaseDownloader) if not cls.__name__.startswith("Base")}
     parser = argparse.ArgumentParser()
     parser.add_argument("--download-only", action="store_true")
+    parser.add_argument("--skip-download", action="store_true")
     parser.add_argument("--delete-files-after", action="store_true")
     parser.add_argument("--download-path")
     parser.add_argument("--temp-table-name-pattern", default="{downloader}_{date_range_slug}_orig")
@@ -389,6 +390,10 @@ if __name__ == "__main__":
     parser.add_argument("--database-url")
     parser.add_argument("dataset", nargs="+", choices=sorted(datasets.keys()))
     args = parser.parse_args()
+    if args.skip_download and args.download_only:
+        import sys
+        print("ERROR: cannot skip download and download only.", file=sys.stderr)
+        exit(1)
     start_date = args.start_date
     if start_date:
         start_date = datetime.datetime.strptime(start_date, "%Y-%m-%d").date()
@@ -407,7 +412,8 @@ if __name__ == "__main__":
     # TODO: execute `sql/functions.sql` and `sql/urlid.sql` before everything
     for dataset in args.dataset:
         Downloader = datasets[dataset]
-        Downloader.download(download_path, start_date, end_date)
+        if not args.skip_download:
+            Downloader.download(download_path, start_date, end_date)
         if not args.download_only:
             Downloader.import_psql(
                 download_path,
