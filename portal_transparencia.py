@@ -160,6 +160,11 @@ class BaseDownloader:
             if not zip_filename.exists():
                 print(f"  WARNING: file {zip_filename} not found - skipping")
                 continue
+            with zip_filename.open(mode="rb") as fobj:
+                sample = fobj.read(1024)
+                if b"<!DOCTYPE html>" in sample:
+                    print(f"  WARNING: file {zip_filename} is invalid (HTML) - skipping")
+                    continue
             zf = zipfile.ZipFile(str(zip_filename))
 
             selected_file_info = None
