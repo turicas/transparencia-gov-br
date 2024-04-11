@@ -322,7 +322,9 @@ class BaseServidorDownloader(BaseDownloader):
 
     @classmethod
     def get_name(cls):
-        return cls.dataset.lower()
+        if cls.dataset is None:  # Should not call this method on this calss
+            raise NotImplementedError()
+        return cls.name
 
     @classmethod
     def get_base_url(cls, year, month, day=None):
@@ -333,57 +335,66 @@ class BaseServidorDownloader(BaseDownloader):
         return urlparse(url).path.rsplit("/", maxsplit=1)[-1].split("_")[0]
 
 
-class ServidorAposentadosBacenDownloader(BaseServidorDownloader):
+class ServidorAposentadoBacenDownloader(BaseServidorDownloader):
     dataset = "Aposentados_BACEN"
-    # TODO: schema_filename = "aposentado_bacen.csv"
+    name = "servidor_aposentado_bacen"
+    # TODO: schema_filename = "servidor_aposentado_bacen.csv"
     start_date = datetime.date(2020, 1, 1)
 
 
-class ServidorAposentadosSiapeDownloader(BaseServidorDownloader):
+class ServidorAposentadoSiapeDownloader(BaseServidorDownloader):
     dataset = "Aposentados_SIAPE"
-    schema_filename = "aposentados_siape.csv"
+    name = "servidor_aposentado_siape"
+    schema_filename = "servidor_aposentado_siape.csv"
     start_date = datetime.date(2020, 1, 1)
 
 
-class ServidorMilitaresDownloader(BaseServidorDownloader):
+class ServidorMilitarDownloader(BaseServidorDownloader):
     dataset = "Militares"
+    name = "servidor_militar"
     # TODO: schema_filename = "servidor_militar.csv"
     start_date = datetime.date(2013, 1, 1)
 
 
-class ServidorPensionistasBacenDownloader(BaseServidorDownloader):
+class ServidorPensionistaBacenDownloader(BaseServidorDownloader):
     dataset = "Pensionistas_BACEN"
-    # TODO: schema_filename = "pensionista_bacen.csv"
+    name = "servidor_pensionista_bacen"
+    # TODO: schema_filename = "servidor_pensionista_bacen.csv"
     start_date = datetime.date(2020, 1, 1)
 
 
-class ServidorPensionistasDefesaDownloader(BaseServidorDownloader):
+class ServidorPensionistaDefesaDownloader(BaseServidorDownloader):
     dataset = "Pensionistas_DEFESA"
-    schema_filename = "pensionista_defesa.csv"
+    name = "servidor_pensionista_defesa"
+    schema_filename = "servidor_pensionista_defesa.csv"
     start_date = datetime.date(2020, 1, 1)
 
 
-class ServidorPensionistasSiapeDownloader(BaseServidorDownloader):
+class ServidorPensionistaSiapeDownloader(BaseServidorDownloader):
     dataset = "Pensionistas_SIAPE"
-    # TODO: schema_filename = "pensionista_siape.csv"
+    name = "servidor_pensionista_siape"
+    # TODO: schema_filename = "servidor_pensionista_siape.csv"
     start_date = datetime.date(2020, 1, 1)
 
 
-class ServidorReservaReformaMilitaresDownloader(BaseServidorDownloader):
+class ServidorMilitarReservaReformaDownloader(BaseServidorDownloader):
     dataset = "Reserva_Reforma_Militares"
-    # TODO: schema_filename = "reserva_militar.csv"
+    name = "servidor_militar_reserva_reforma"
+    # TODO: schema_filename = "servidor_militar_reserva_reforma.csv"
     start_date = datetime.date(2020, 1, 1)
 
 
 class ServidorBacenDownloader(BaseServidorDownloader):
     dataset = "Servidores_BACEN"
+    name = "servidor_bacen"
     # TODO: schema_filename = "servidor_bacen.csv"
     start_date = datetime.date(2013, 1, 1)
 
 
 class ServidorSiapeDownloader(BaseServidorDownloader):
     dataset = "Servidores_SIAPE"
-    schema_filename = "servidores_siape.csv"
+    name = "servidor_siape"
+    schema_filename = "servidor_siape.csv"
     start_date = datetime.date(2013, 1, 1)
 
 

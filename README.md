@@ -18,25 +18,35 @@ python portal_transparencia.py <nome-do-dataset>
 
 Os datasets atualmente disponíveis são:
 
-- `aposentados_bacen`
-- `aposentados_siape`
 - `auxilio_emergencial`
 - `despesa_empenho`
 - `despesa_favorecido`
 - `despesa_item_empenho`
 - `execucao_despesa`
-- `militares`
 - `orcamento_despesa`
-- `pagamento_historico`
 - `pagamento`
-- `pensionistas_bacen`
-- `pensionistas_defesa`
-- `pensionistas_siape`
+- `pagamento_historico`
 - `pessoa_exposta_politicamente`
-- `reserva_reforma_militares`
-- `servidores_bacen`
-- `servidores_siape`
+- `servidor_aposentado_bacen`
+- `servidor_aposentado_siape`
+- `servidor_bacen`
+- `servidor_militar`
+- `servidor_militar_reserva_reforma`
+- `servidor_pensionista_bacen`
+- `servidor_pensionista_defesa`
+- `servidor_pensionista_siape`
+- `servidor_siape`
 - `transferencia_despesa`
 
 Execute `python portal_transparencia.py --help` outras configurações (como datas de início/fim, caminho para salvar os
 arquivos etc.).
+
+A lista acima foi gerada com o seguinte código:
+
+```python
+from portal_transparencia import BaseDownloader, subclasses
+
+scrapers = [cls.get_name() for cls in subclasses(BaseDownloader) if not cls.__name__.startswith("Base")]
+for scraper in sorted(scrapers):
+    print(f"- `{scraper}`")
+```
