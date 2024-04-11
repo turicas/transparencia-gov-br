@@ -36,6 +36,7 @@ Os datasets atualmente disponíveis são:
 - `reserva_reforma_militares`
 - `servidores_bacen`
 - `servidores_siape`
+- `transferencia_despesa`
 
 Execute `python portal_transparencia.py --help` outras configurações (como datas de início/fim, caminho para salvar os
 arquivos etc.).

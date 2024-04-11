@@ -282,6 +282,16 @@ class ExecucaoDespesaDownloader(BaseDownloader):
     # TODO: schema_filename = "execucao_despesa.csv"
 
 
+class TransferenciaDespesaDownloader(BaseDownloader):
+    name = "transferencia_despesa"
+    base_url = "https://transparencia.gov.br/download-de-dados/transferencias/{year}{month:02d}"
+    start_date = datetime.date(2014, 1, 1)
+    end_date = today()
+    publish_frequency = "monthly"
+    filename_suffix = "_Transferencias.csv"
+    schema_filename = "transferencia_despesa.csv"
+
+
 class OrcamentoDespesaDownloader(BaseDownloader):
     name = "orcamento_despesa"
     base_url = "https://transparencia.gov.br/download-de-dados/orcamento-despesa/{year}"
