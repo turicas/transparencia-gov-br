@@ -359,6 +359,7 @@ class BaseSancaoDownloader(BaseDownloader):
 
 
 class SancaoCeisDownloader(BaseSancaoDownloader):
+    """Dataset: Empresas Inidôneas e Suspensas"""
     dataset = "ceis"
     name = "sancao_ceis"
     filename_suffix = "_CEIS.csv"
@@ -366,6 +367,7 @@ class SancaoCeisDownloader(BaseSancaoDownloader):
 
 
 class SancaoCepimDownloader(BaseSancaoDownloader):
+    """Dataset: Entidades sem Fins Lucrativos Impedidas"""
     dataset = "cepim"
     name = "sancao_cepim"
     filename_suffix = "_CEPIM.csv"
@@ -373,6 +375,7 @@ class SancaoCepimDownloader(BaseSancaoDownloader):
 
 
 class SancaoCnepDownloader(BaseSancaoDownloader):
+    """Dataset: Empresas Punidas"""
     dataset = "cnep"
     name = "sancao_cnep"
     filename_suffix = "_CNEP.csv"
@@ -380,17 +383,19 @@ class SancaoCnepDownloader(BaseSancaoDownloader):
 
 
 class SancaoAcordoLenienciaDownloader(BaseSancaoDownloader):
+    """Dataset: Acordos de Leniência"""
     dataset = "acordos-leniencia"
     name = "sancao_acordo_leniencia"
     filename_suffix = "_Acordos.csv"
     schema_filename = "sancao_acordo_leniencia.csv"
 
 
-class SancaoExpulsaoAdministracaoFederalDownloader(BaseSancaoDownloader):
+class SancaoCeafDownloader(BaseSancaoDownloader):
+    """Dataset: Cadastro de Expulsões da Administração Federal"""
     dataset = "ceaf"
-    name = "sancao_expulsao_adm_federal"
+    name = "sancao_ceaf"
     filename_suffix = "_Expulsoes.csv"
-    schema_filename = "sancao_expulsao_adm_federal.csv"
+    schema_filename = "sancao_ceaf.csv"
 
 
 # Servidores, pensionistas e militares

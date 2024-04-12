@@ -1,5 +1,34 @@
 WITH
-  ceis AS (
+  acordo_leniencia AS (
+    SELECT
+      UNACCENT(UPPER(TRIM(sancionado_razao_social))) AS nome,
+      sancionado_cnpj AS documento,
+      processo,
+      'Acordo de leniência' AS tipo,
+      situacao AS detalhe_tipo,
+      data_inicio,
+      data_fim,
+      orgao AS orgao,
+      NULL::text AS fundamentacao,
+      NULL::numeric AS multa
+    FROM sancao_acordo_leniencia
+    WHERE sancionado_cnpj ~ '^[0-9]+$'
+  )
+  , ceaf AS (
+    SELECT
+      UNACCENT(UPPER(TRIM(sancionado))) AS nome,
+      sancionado_documento AS documento,
+      processo,
+      'Expulsão da Administração Federal' AS tipo,
+      abrangencia AS detalhe_tipo,
+      data_inicio,
+      data_fim,
+      orgao AS orgao,
+      fundamentacao_legal AS fundamentacao,
+      NULL::numeric AS multa
+    FROM sancao_ceaf
+  )
+  , ceis AS (
     SELECT
       CASE
         WHEN sancionado_tipo = 'J' THEN UNACCENT(UPPER(TRIM(sancionado_razao_social_receita_federal)))
@@ -47,45 +76,16 @@ WITH
       valor_multa AS multa
     FROM sancao_cnep
   )
-  , acordo_leniencia AS (
-    SELECT
-      UNACCENT(UPPER(TRIM(sancionado_razao_social))) AS nome,
-      sancionado_cnpj AS documento,
-      processo,
-      'Acordo de leniência' AS tipo,
-      situacao AS detalhe_tipo,
-      data_inicio,
-      data_fim,
-      orgao AS orgao,
-      NULL::text AS fundamentacao,
-      NULL::numeric AS multa
-    FROM sancao_acordo_leniencia
-    WHERE sancionado_cnpj ~ '^[0-9]+$'
-  )
-  , expulsao_adm_federal AS (
-    SELECT
-      UNACCENT(UPPER(TRIM(sancionado))) AS nome,
-      sancionado_documento AS documento,
-      processo,
-      'Expulsão da Administração Federal' AS tipo,
-      abrangencia AS detalhe_tipo,
-      data_inicio,
-      data_fim,
-      orgao AS orgao,
-      fundamentacao_legal AS fundamentacao,
-      NULL::numeric AS multa
-    FROM sancao_expulsao_adm_federal
-  )
   , tudo AS (
+    SELECT * FROM acordo_leniencia
+    UNION ALL
+    SELECT * FROM ceaf
+    UNION ALL
     SELECT * FROM ceis
     UNION ALL
     SELECT * FROM cepim
     UNION ALL
     SELECT * FROM cnep
-    UNION ALL
-    SELECT * FROM acordo_leniencia
-    UNION ALL
-    SELECT * FROM expulsao_adm_federal
   )
 SELECT
   CASE

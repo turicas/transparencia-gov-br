@@ -31,7 +31,7 @@ Os datasets atualmente disponíveis são:
 - `sancao_ceis`
 - `sancao_cepim`
 - `sancao_cnep`
-- `sancao_expulsao_adm_federal`
+- `sancao_ceaf`
 - `servidor_aposentado_bacen`
 - `servidor_aposentado_siape`
 - `servidor_bacen`
