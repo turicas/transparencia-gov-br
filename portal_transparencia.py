@@ -1,6 +1,7 @@
 import csv
 import datetime
 import io
+import time
 import zipfile
 from collections import OrderedDict
 from pathlib import Path
@@ -189,6 +190,7 @@ class BaseDownloader:
             execute_command(get_psql_command(drop_sql, database_uri=database_url))
 
             progress_bar = ProgressBar(prefix="  Importing", unit="bytes")
+            start_time = time.time()
             result = pgcopy.import_from_fobj(
                 fobj=zf.open(selected_file_info.filename),
                 table_name=temp_table_name,
@@ -200,6 +202,7 @@ class BaseDownloader:
                 unlogged=True,  # This is a temporary table, so let's save time
                 callback=progress_bar.update,
             )
+            end_time = time.time()
             progress_bar.close()
             if delete_files_after:
                 zip_filename.unlink()
@@ -207,10 +210,20 @@ class BaseDownloader:
                 insert_sql = f'CREATE TABLE "{table_name}" AS {cls.select_sql(date_range, temp_table_name)}'
             else:
                 insert_sql = f'INSERT INTO "{table_name}" {cls.select_sql(date_range, temp_table_name)}'
-            print(f"  {result['rows_imported']} rows imported, converting and inserting into final table...")
+            print(f"  {result['rows_imported']} rows imported in {end_time - start_time:.2f}s")
+
+            print("  Converting and inserting into final table...", end="", flush=True)
+            start_time = time.time()
             execute_command(get_psql_command(insert_sql, database_uri=database_url))
-            print("  Deleting temporary table...")
+            end_time = time.time()
+            print(f" done in {end_time - start_time:.2f}s", flush=True)
+
+            print("  Deleting temporary table...", end="", flush=True)
+            start_time = time.time()
             execute_command(get_psql_command(drop_sql, database_uri=database_url))
+            end_time = time.time()
+            print(f" done in {end_time - start_time:.2f}s", flush=True)
+
             rows_imported += result["rows_imported"]
         print(f"Total rows imported: {rows_imported}")
 
