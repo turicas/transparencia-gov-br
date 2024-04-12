@@ -1,8 +1,5 @@
 CREATE OR REPLACE FUNCTION clean_text(value TEXT)
 RETURNS TEXT AS $$
 BEGIN
-  RETURN CASE
-    WHEN value = 'Sem informação' THEN NULL
-    ELSE value
-  END;
+  RETURN TRIM(NULL_IF(value, 'Sem informação'));
 END; $$ LANGUAGE 'plpgsql' IMMUTABLE;
