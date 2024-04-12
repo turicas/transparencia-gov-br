@@ -1,11 +1,13 @@
 import csv
 import datetime
 import io
+import json
 import time
 import zipfile
 from collections import OrderedDict
 from pathlib import Path
 from urllib.parse import urlparse
+from urllib.request import urlopen
 
 import rows
 from rows.fields import slug
@@ -50,6 +52,11 @@ class BaseDownloader:
 
     @classmethod
     def urls(cls, start_date, end_date):
+        if cls.publish_frequency == "once":
+            date = cls.get_last_date()
+            yield cls.get_base_url(year=date.year, month=date.month, day=date.day)
+            return
+
         for date in date_range(start=start_date, stop=end_date, step=cls.publish_frequency):
             try:
                 url = cls.get_base_url(year=date.year, month=date.month, day=date.day)
@@ -60,6 +67,10 @@ class BaseDownloader:
     @classmethod
     def get_base_url(cls, year, month, day):
         raise NotImplementedError()
+
+    @classmethod
+    def get_last_date(self):
+        raise NotImplementedError("Downloaders com publish_frequency = 'once' devem implementar `get_last_date`")
 
     @classmethod
     def get_date_range_from_url(cls, url):
@@ -249,6 +260,8 @@ class PessoaExpostaPoliticamenteDownloader(BaseDownloader):
     schema_filename = "pessoa_exposta_politicamente.csv"
 
 
+# Despesas, pagamentos e transferências
+
 class BaseDespesaDownloader(BaseDownloader):
     base_url = "https://transparencia.gov.br/download-de-dados/despesas/{year}{month:02d}{day:02d}"
     start_date = datetime.date(2013, 3, 31)
@@ -324,6 +337,56 @@ class PagamentoHistoricoDownloader(BaseDownloader):
     # TODO: schema_filename = "pagamento_historico.csv"
     # TODO: check if NotNullTextWrapper is needed here
 
+
+# Sanções
+class BaseSancaoDownloader(BaseDownloader):
+    publish_frequency = "once"
+    start_date = end_date = None
+
+    @classmethod
+    def get_base_url(cls, year, month, day=None):
+        return f"https://transparencia.gov.br/download-de-dados/{cls.dataset}/{year:04d}{month:02d}{day:02d}"
+
+    @classmethod
+    def get_last_date(cls):
+        response = urlopen(f"https://portaldatransparencia.gov.br/download-de-dados/{cls.dataset}")
+        html = response.read().decode("utf-8")
+        start = html.find("arquivos.push(")
+        part = html[start:]
+        json_data = part[part.find("(") + 1:part.find(")")]
+        data = json.loads(json_data)
+        return datetime.date(int(data["ano"]), int(data["mes"]), int(data["dia"]))
+
+
+class SancaoCeisDownloader(BaseSancaoDownloader):
+    dataset = "ceis"
+    name = "sancao_ceis"
+    filename_suffix = "_CEIS.csv"
+    schema_filename = "sancao_ceis.csv"
+
+
+class SancaoCepimDownloader(BaseSancaoDownloader):
+    dataset = "cepim"
+    name = "sancao_cepim"
+    filename_suffix = "_CEPIM.csv"
+    schema_filename = "sancao_cepim.csv"
+
+
+class SancaoCnepDownloader(BaseSancaoDownloader):
+    dataset = "cnep"
+    name = "sancao_cnep"
+    filename_suffix = "_CNEP.csv"
+    schema_filename = "sancao_cnep.csv"
+
+
+class SancaoAcordoLenienciaDownloader(BaseSancaoDownloader):
+    dataset = "acordos-leniencia"
+    name = "sancao_acordo_leniencia"
+    filename_suffix = "_Acordos.csv"
+    schema_filename = "sancao_acordo_leniencia.csv"
+
+
+# Servidores, pensionistas e militares
 
 class BaseServidorDownloader(BaseDownloader):
     dataset = None  # Must define in subclass
