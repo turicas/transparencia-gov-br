@@ -386,6 +386,13 @@ class SancaoAcordoLenienciaDownloader(BaseSancaoDownloader):
     schema_filename = "sancao_acordo_leniencia.csv"
 
 
+class SancaoExpulsaoAdministracaoFederalDownloader(BaseSancaoDownloader):
+    dataset = "ceaf"
+    name = "sancao_expulsao_adm_federal"
+    filename_suffix = "_Expulsoes.csv"
+    schema_filename = "sancao_expulsao_adm_federal.csv"
+
+
 # Servidores, pensionistas e militares
 
 class BaseServidorDownloader(BaseDownloader):

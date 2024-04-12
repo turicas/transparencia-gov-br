@@ -62,6 +62,20 @@ WITH
     FROM sancao_acordo_leniencia
     WHERE sancionado_cnpj ~ '^[0-9]+$'
   )
+  , expulsao_adm_federal AS (
+    SELECT
+      UNACCENT(UPPER(TRIM(sancionado))) AS nome,
+      sancionado_documento AS documento,
+      processo,
+      'Expulsão da Administração Federal' AS tipo,
+      abrangencia AS detalhe_tipo,
+      data_inicio,
+      data_fim,
+      orgao AS orgao,
+      fundamentacao_legal AS fundamentacao,
+      NULL::numeric AS multa
+    FROM sancao_expulsao_adm_federal
+  )
   , tudo AS (
     SELECT * FROM ceis
     UNION ALL
@@ -70,6 +84,8 @@ WITH
     SELECT * FROM cnep
     UNION ALL
     SELECT * FROM acordo_leniencia
+    UNION ALL
+    SELECT * FROM expulsao_adm_federal
   )
 SELECT
   CASE

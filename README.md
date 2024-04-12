@@ -27,6 +27,11 @@ Os datasets atualmente disponíveis são:
 - `pagamento`
 - `pagamento_historico`
 - `pessoa_exposta_politicamente`
+- `sancao_acordo_leniencia`
+- `sancao_ceis`
+- `sancao_cepim`
+- `sancao_cnep`
+- `sancao_expulsao_adm_federal`
 - `servidor_aposentado_bacen`
 - `servidor_aposentado_siape`
 - `servidor_bacen`
