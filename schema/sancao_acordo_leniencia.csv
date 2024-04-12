@@ -1,6 +1,6 @@
 "original_name","original_type","transformation","field_name","field_type"
 "ID DO ACORDO","text","clean_text(""id_do_acordo"")","id","text"
-"CNPJ DO SANCIONADO","text","clean_text(""cnpj_do_sancionado"")","sancionado_cnpj","text"
+"CNPJ DO SANCIONADO","text","REGEXP_REPLACE(""cnpj_do_sancionado"", '[^0-9]+', '', 'g')","sancionado_cnpj","text"
 "RAZÃO SOCIAL � CADASTRO RECEITA","text","clean_text(""razao_social_cadastro_receita"")","sancionado_razao_social","text"
 "NOME FANTASIA � CADASTRO RECEITA","text","clean_text(""nome_fantasia_cadastro_receita"")","sancionado_nome_fantasia","text"
 "DATA DE INÍCIO DO ACORDO","text","TO_DATE(""data_de_inicio_do_acordo"", 'DD/MM/YYYY')","data_inicio","date"

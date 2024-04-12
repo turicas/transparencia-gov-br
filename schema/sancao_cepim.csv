@@ -1,5 +1,5 @@
 "original_name","original_type","transformation","field_name","field_type"
-"CNPJ ENTIDADE","text","clean_text(""cnpj_entidade"")","sancionado_cnpj","text"
+"CNPJ ENTIDADE","text","REGEXP_REPLACE(""cnpj_entidade"", '[^0-9]+', '', 'g')","sancionado_cnpj","text"
 "NOME ENTIDADE","text","clean_text(""nome_entidade"")","sancionado","text"
 "NÚMERO CONVÊNIO","text","clean_text(""numero_convenio"")","convenio_numero","text"
 "ÓRGÃO CONCEDENTE","text","clean_text(""orgao_concedente"")","orgao","text"

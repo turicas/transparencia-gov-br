@@ -2,7 +2,7 @@
 "CADASTRO","text","clean_text(""cadastro"")","cadastro","text"
 "CÓDIGO DA SANÇÃO","text","clean_text(""codigo_da_sancao"")","codigo","text"
 "TIPO DE PESSOA","text","clean_text(""tipo_de_pessoa"")","sancionado_tipo","text"
-"CPF OU CNPJ DO SANCIONADO","text","clean_text(""cpf_ou_cnpj_do_sancionado"")","sancionado_documento","text"
+"CPF OU CNPJ DO SANCIONADO","text","REGEXP_REPLACE(""cpf_ou_cnpj_do_sancionado"", '[^0-9*]+', '', 'g')","sancionado_documento","text"
 "NOME DO SANCIONADO","text","clean_text(""nome_do_sancionado"")","sancionado","text"
 "NOME INFORMADO PELO ÓRGÃO SANCIONADOR","text","clean_text(""nome_informado_pelo_orgao_sancionador"")","sancionado_nome_informado","text"
 "RAZÃO SOCIAL - CADASTRO RECEITA","text","clean_text(""razao_social_cadastro_receita"")","sancionado_razao_social_receita_federal","text"
