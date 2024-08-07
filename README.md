@@ -55,3 +55,25 @@ scrapers = [cls.get_name() for cls in subclasses(BaseDownloader) if not cls.__na
 for scraper in sorted(scrapers):
     print(f"- `{scraper}`")
 ```
+
+## Transformações
+
+As transformações nos dados estão nos arquivos na pasta `schema` e necessitam ter as seguintes colunas:
+
+- `original_name`: nome original do campo (depois de rodar a função `rows.fields.slug`, ou seja, totalmente em
+  minúsculas, sem acentos e espaços trocados por `_`)
+- `original_type`: tipo original baseado no plugin da rows (para ser importado com COPY no postgres). Opções:
+  - `binary`
+  - `bool`
+  - `date`
+  - `datetime`
+  - `decimal`
+  - `float`
+  - `integer`
+  - `json`
+  - `percent`
+  - `text`
+  - `uuid`
+- `transformation`: expressão SQL para gerar esse campo
+- `field_name`: nome final do campo
+- `field_type`: tipo final do campo
