@@ -25,6 +25,11 @@ def today():
     return datetime.datetime.now().date()
 
 
+def current_month():
+    now = today()
+    return now.replace(day=1)
+
+
 def last_month():
     now = today()
     return now - datetime.timedelta(days=now.day + 1)
@@ -484,6 +489,56 @@ class ServidorSiapeDownloader(BaseServidorDownloader):
     name = "servidor_siape"
     schema_filename = "servidor_siape.csv"
     start_date = datetime.date(2013, 1, 1)
+
+
+class BaseNotaFiscalDownloader(BaseDownloader):
+    base_url = "https://portaldatransparencia.gov.br/download-de-dados/notas-fiscais/{year}{month:02d}"
+    start_date = datetime.date(2019, 11, 1)
+    end_date = current_month()
+    publish_frequency = "monthly"
+
+class NotaFiscalDownloader(BaseNotaFiscalDownloader):
+    name = "nota_fiscal"
+    filename_suffix = "_NotaFiscal.csv"
+    schema_filename = "nota_fiscal.csv"
+
+class NotaFiscalEventoDownloader(BaseNotaFiscalDownloader):
+    name = "nota_fiscal_evento"
+    filename_suffix = "_NotaFiscalEvento.csv"
+    # TODO: schema_filename = "nota_fiscal_evento.csv"
+
+class NotaFiscalItemDownloader(BaseNotaFiscalDownloader):
+    name = "nota_fiscal_item"
+    filename_suffix = "_NotaFiscalItem.csv"
+    # TODO: schema_filename = "nota_fiscal_item.csv"
+
+
+class BaseRenunciaFiscalDownloader(BaseDownloader):
+    base_url = "https://portaldatransparencia.gov.br/download-de-dados/renuncias/{year}"
+    start_date = datetime.date(2021, 1, 1)
+    end_date = current_month()
+    publish_frequency = "yearly"
+
+class RenunciaFiscalDownloader(BaseRenunciaFiscalDownloader):
+    name = "renuncia_fiscal"
+    filename_suffix = "_RenúnciasFiscais.csv"
+    schema_filename = "renuncia_fiscal.csv"
+
+class RenunciaFiscalImuneIsentaDownloader(BaseRenunciaFiscalDownloader):
+    name = "renuncia_fiscal_imune_isenta"
+    filename_suffix = "_EmpresasImunesOuIsentas.csv"
+    # TODO: schema_filename = "renuncia_fiscal_imune_isenta.csv"
+
+class RenunciaFiscalHabilitadaDownloader(BaseRenunciaFiscalDownloader):
+    name = "renuncia_fiscal_habilitada"
+    filename_suffix = "_EmpresasHabilitadas.csv"
+    # TODO: schema_filename = "renuncia_fiscal_habilitada.csv"
+
+class RenunciaFiscalBeneficiariaDownloader(BaseRenunciaFiscalDownloader):
+    name = "renuncia_fiscal_beneficiaria"
+    filename_suffix = "_RenúnciasFiscaisPorBeneficiário.csv"
+    # TODO: schema_filename = "renuncia_fiscal_beneficiaria.csv"
+
 
 
 def subclasses(cls):

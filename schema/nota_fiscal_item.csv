@@ -1,0 +1,28 @@
+field_name,field_type,null,min,max,max_length,subtype,choices
+chave_de_acesso,integer,false,11240400000725002204559200000005801705547518,53240492660406003134550050002668051000075018,,,null
+modelo,text,false,,,51,VARCHAR,"[""55 - NF-E EMITIDA EM SUBSTITUI\u00c7\u00c3O AO MODELO 1 OU 1A""]"
+serie,integer,false,0,930,,SMALLINT,null
+numero,integer,false,1,900227301,,INTEGER,null
+natureza_da_operacao,text,false,,,60,VARCHAR,null
+data_emissao,text,false,,,19,VARCHAR,null
+cpf_cnpj_emitente,text,false,,,14,VARCHAR,null
+razao_social_emitente,text,false,,,60,VARCHAR,null
+inscricao_estadual_emitente,integer,false,-1,7885223760014,,BIGINT,null
+uf_emitente,text,false,,,2,VARCHAR,"[""AC"", ""AL"", ""AM"", ""AP"", ""BA"", ""CE"", ""DF"", ""ES"", ""GO"", ""MA"", ""MG"", ""MS"", ""MT"", ""PA"", ""PB"", ""PE"", ""PI"", ""PR"", ""RJ"", ""RN"", ""RO"", ""RR"", ""RS"", ""SC"", ""SE"", ""SP"", ""TO""]"
+municipio_emitente,text,false,,,32,VARCHAR,null
+cnpj_destinatario,integer,false,38166000105,95591764001420,,BIGINT,null
+nome_destinatario,text,false,,,60,VARCHAR,null
+uf_destinatario,text,false,,,2,VARCHAR,"[""AC"", ""AL"", ""AM"", ""AP"", ""BA"", ""CE"", ""DF"", ""ES"", ""GO"", ""MA"", ""MG"", ""MS"", ""MT"", ""PA"", ""PB"", ""PE"", ""PI"", ""PR"", ""RJ"", ""RN"", ""RO"", ""RR"", ""RS"", ""SC"", ""SE"", ""SP"", ""TO""]"
+indicador_ie_destinatario,text,false,,,19,VARCHAR,"[""CONTRIBUINTE ICMS"", ""CONTRIBUINTE ISENTO"", ""N\u00c3O CONTRIBUINTE""]"
+destino_da_operacao,text,false,,,26,VARCHAR,"[""1 - OPERA\u00c7\u00c3O INTERNA"", ""2 - OPERA\u00c7\u00c3O INTERESTADUAL""]"
+consumidor_final,text,false,,,20,VARCHAR,"[""0 - NORMAL"", ""1 - CONSUMIDOR FINAL""]"
+presenca_do_comprador,text,false,,,44,VARCHAR,"[""0 - N\u00c3O SE APLICA"", ""1 - OPERA\u00c7\u00c3O PRESENCIAL"", ""2 - OPERA\u00c7\u00c3O N\u00c3O PRESENCIAL, PELA INTERNET"", ""3 - OPERA\u00c7\u00c3O N\u00c3O PRESENCIAL, TELEATENDIMENTO"", ""5 - N\u00c3O INFORMADO"", ""9 - OPERA\u00c7\u00c3O N\u00c3O PRESENCIAL, OUTROS""]"
+numero_produto,integer,false,1,411,,SMALLINT,null
+descricao_do_produto_servico,text,false,,,120,VARCHAR,null
+codigo_ncm_sh,integer,false,-1,99999999,,INTEGER,null
+ncm_sh_tipo_de_produto,text,true,,,255,VARCHAR,null
+cfop,integer,false,1101,6949,,SMALLINT,null
+quantidade,text,false,,,10,VARCHAR,null
+unidade,text,true,,,6,VARCHAR,null
+valor_unitario,text,false,,,11,VARCHAR,null
+valor_total,text,false,,,12,VARCHAR,null
