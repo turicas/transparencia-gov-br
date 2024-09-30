@@ -1,0 +1,12 @@
+field_name,field_type
+object_uuid,uuid
+nome,text
+documento,text
+processo,text
+tipo,text
+detalhe_tipo,text
+data_inicio,date
+data_fim,date
+orgao,text
+fundamentacao,text
+multa,decimal
