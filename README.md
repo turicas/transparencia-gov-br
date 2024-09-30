@@ -1,16 +1,55 @@
 # Scraper do Portal da Transparência do Governo Federal
 
-## Instalando
+Conjunto de scripts que baixam e limpam/tratam dados do [Portal da Transparência do Governo
+Federal](https://transparencia.gov.br/).
+
+
+## Ambiente
+
+Você precisa do docker compose para executar este projeto. Depois de clonar esse repositório, execute o comando abaixo
+para construir os containers (`build`), iniciá-los (`start`) e ver os logs (`logs`) de todos os serviços em execução:
 
 ```shell
-pyenv virtualenv 3.7.3 transparencia-gov-br
-pyenv activate transparencia-gov-br
-pip install -r requirements.txt
+make build start logs
 ```
 
-## Rodando
+> Nota: a etapa `build` precisará ser executada somente apenas na primeira vez em que você for rodar o projeto e caso
+> tenham tido mudanças no `Dockerfile`. Para as próximas vezes que for trabalhar no projeto, execute apenas
+> `make start logs`.
 
-Para baixar e converter um dataset, execute:
+Existem diversos atalhos no `Makefile`. Digite `make help` para ver todos. Eles devem ser executados fora do container
+(na máquina host, onde o docker daemon está rodando). Os principais são:
+
+Parar containers:
+
+```shell
+make stop
+```
+
+Reiniciar containers:
+
+```shell
+make restart
+```
+
+Forçar o guia de estilo de código Python/reformatar todos os arquivos:
+
+```shell
+make lint
+```
+
+
+### Personalizando variáveis de ambiente
+
+Para cada serviço disponível no `compose.yaml`, temos um arquivo de variáveis de ambiente padrão chamado
+`docker/env/<service>`. Se você precisar alterar qualquer uma das variáveis, crie um arquivo
+`docker/env/<service>.local` e coloque-as lá. Os arquivos `.local` presentes em `docker/env` serão ignorados pelo Git e
+o docker compose o carregará logo após o padrão (sobrescrevendo os valores com sua versão).
+
+
+## Coletando dados
+
+Para baixar e converter um dataset, execute dentro do container `main` (para executá-lo, rode `make bash`):
 
 ```shell
 python portal_transparencia.py <nome-do-dataset>
@@ -56,7 +95,7 @@ for scraper in sorted(scrapers):
     print(f"- `{scraper}`")
 ```
 
-## Transformações
+### Transformações
 
 As transformações nos dados estão nos arquivos na pasta `schema` e necessitam ter as seguintes colunas:
 

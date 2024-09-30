@@ -6,8 +6,8 @@ WORKDIR /app
 VOLUME /data
 
 RUN apt update \
-  && apt install -y build-essential make python3-dev wget \
-  && echo "deb http://apt.postgresql.org/pub/repos/apt bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
+  && apt install -y aria2 build-essential make python3-dev wget \
+  && echo "deb http://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
   && wget --quiet -O /etc/apt/trusted.gpg.d/postgres.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc \
   && apt update \
   && apt install -y postgresql-client-16 libpq-dev \

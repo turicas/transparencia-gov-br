@@ -1,0 +1,3 @@
+# Environment variables for `db` service
+
+POSTGRES_PASSWORD="verysecret"

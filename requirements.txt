@@ -1,5 +1,6 @@
 cached_property
 https://github.com/turicas/rows/archive/develop.zip
+psycopg2-binary >= 2.9.9, < 3.0.0
 requests  # TODO: remove when dependency bug in rows is fixed
 s3cmd
 scrapy

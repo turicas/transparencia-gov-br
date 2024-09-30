@@ -1,0 +1,4 @@
+# Environment variables for `main` service
+
+DATABASE_URL="postgres://postgres:verysecret@db:5432/postgres"
+DATA_DIR="/data"
