@@ -195,7 +195,12 @@ class BaseDownloader:
 
             csv_field_names = cls.zipped_csv_field_names(zf, selected_file_info.filename, encoding=encoding, dialect=dialect)
             expected_field_names = cls.schema_field_names()
-            assert csv_field_names == expected_field_names, f"Invalid field names in CSV - expected: {expected_field_names}, got: {csv_field_names}"
+            missing_fields = sorted(set(expected_field_names) - set(csv_field_names))
+            extra_fields = sorted(set(csv_field_names) - set(expected_field_names))
+            if missing_fields or extra_fields:
+                json_data = {"missing": missing_fields, "extra": extra_fields}
+                message = f"Invalid field names in CSV for {cls.name}: {json.dumps(json_data)}"
+                assert csv_field_names == expected_field_names, message
             temp_table_name = cls.create_temp_table_name(
                 temp_table_name_pattern,
                 downloader=downloader,
