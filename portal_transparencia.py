@@ -10,12 +10,11 @@ from urllib.parse import urlparse
 from urllib.request import urlopen
 
 import rows
+from rows import plugins
 from rows.fields import slug
-from rows.plugins.postgresql import PostgresCopy, get_psql_command
 from rows.utils import ProgressBar, execute_command
 from rows.utils.date import date_range
 from rows.utils.download import Aria2cDownloader, Download
-
 
 DOWNLOAD_PATH = Path(__file__).parent.parent / "data" / "download"
 SCHEMA_PATH = Path(__file__).parent / "schema"
@@ -159,17 +158,17 @@ class BaseDownloader:
         end_date=None,
         temp_table_name_pattern=None,
         encoding="iso-8859-15",
-        dialect="excel-semicolon",
+        dialect=plugins.csv.excel_semicolon,
         delete_files_after=False,
     ):
         downloader = cls.get_name()
         table_name = downloader
         drop_sql = f'DROP TABLE IF EXISTS "{table_name}"'
         print("Ensuring final table does not exist...")
-        execute_command(get_psql_command(drop_sql, database_uri=database_url))
+        execute_command(plugins.postgresql.get_psql_command(drop_sql, database_uri=database_url))
 
         rows_imported = 0
-        pgcopy = PostgresCopy(database_url)
+        pgcopy = plugins.postgresql.PostgresCopy(database_url)
         for url in cls.urls(start_date=start_date or cls.start_date, end_date=end_date or cls.end_date):
             date_range = cls.get_date_range_from_url(url)
             zip_filename = cls.make_filename(download_path, url)
@@ -208,7 +207,7 @@ class BaseDownloader:
             )
             drop_sql = f'DROP TABLE IF EXISTS "{temp_table_name}"'
             print("  Ensuring temporary table does not exist...")
-            execute_command(get_psql_command(drop_sql, database_uri=database_url))
+            execute_command(plugins.postgresql.get_psql_command(drop_sql, database_uri=database_url))
 
             progress_bar = ProgressBar(prefix="  Importing", unit="bytes")
             start_time = time.time()
@@ -235,13 +234,13 @@ class BaseDownloader:
 
             print("  Converting and inserting into final table...", end="", flush=True)
             start_time = time.time()
-            execute_command(get_psql_command(insert_sql, database_uri=database_url))
+            execute_command(plugins.postgresql.get_psql_command(insert_sql, database_uri=database_url))
             end_time = time.time()
             print(f" done in {end_time - start_time:.2f}s", flush=True)
 
             print("  Deleting temporary table...", end="", flush=True)
             start_time = time.time()
-            execute_command(get_psql_command(drop_sql, database_uri=database_url))
+            execute_command(plugins.postgresql.get_psql_command(drop_sql, database_uri=database_url))
             end_time = time.time()
             print(f" done in {end_time - start_time:.2f}s", flush=True)
 
