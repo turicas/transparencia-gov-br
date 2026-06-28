@@ -7,7 +7,7 @@ import zipfile
 from collections import OrderedDict
 from pathlib import Path
 from urllib.parse import urlparse
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 import rows
 from rows import plugins
@@ -106,9 +106,9 @@ class BaseDownloader:
     @classmethod
     def select_sql(cls, date_range, temp_table_name):
         "Create SQL SELECT with transformations needed to insert data into final (clean) table, including date range"
-        if len(date_range) == 6: # YYYYMM
+        if len(date_range) == 6:  # YYYYMM
             date_value = f"{date_range[:4]}-{date_range[4:]}-01"
-        elif len(date_range) == 8: # YYYYMMDD
+        elif len(date_range) == 8:  # YYYYMMDD
             date_value = f"{date_range[:4]}-{date_range[4:6]}-{date_range[6:]}"
         else:
             raise ValueError(f"Invalid date_range format: {date_range}")
@@ -118,11 +118,7 @@ class BaseDownloader:
             for row in cls.read_schema()
             if row["field_name"] and row["transformation"]
         ]
-        return (
-            f"SELECT '{date_value}'::date AS periodo, "
-            + ", ".join(transformations)
-            + f" FROM {temp_table_name}"
-        )
+        return f"SELECT '{date_value}'::date AS periodo, " + ", ".join(transformations) + f" FROM {temp_table_name}"
 
     @classmethod
     def download(cls, download_path, start_date=None, end_date=None):
@@ -192,7 +188,9 @@ class BaseDownloader:
                 print(f"  WARNING: inner file not found for {zip_filename}")
                 continue
 
-            csv_field_names = cls.zipped_csv_field_names(zf, selected_file_info.filename, encoding=encoding, dialect=dialect)
+            csv_field_names = cls.zipped_csv_field_names(
+                zf, selected_file_info.filename, encoding=encoding, dialect=dialect
+            )
             expected_field_names = cls.schema_field_names()
             missing_fields = sorted(set(expected_field_names) - set(csv_field_names))
             extra_fields = sorted(set(csv_field_names) - set(expected_field_names))
@@ -270,6 +268,7 @@ class PessoaExpostaPoliticamenteDownloader(BaseDownloader):
 
 
 # Despesas, pagamentos e transferências
+
 
 class BaseDespesaDownloader(BaseDownloader):
     base_url = "https://transparencia.gov.br/download-de-dados/despesas/{year}{month:02d}{day:02d}"
@@ -358,17 +357,24 @@ class BaseSancaoDownloader(BaseDownloader):
 
     @classmethod
     def get_last_date(cls):
-        response = urlopen(f"https://portaldatransparencia.gov.br/download-de-dados/{cls.dataset}")
+        request = Request(
+            f"https://portaldatransparencia.gov.br/download-de-dados/{cls.dataset}",
+            headers={
+                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+            },
+        )
+        response = urlopen(request)
         html = response.read().decode("utf-8")
         start = html.find("arquivos.push(")
         part = html[start:]
-        json_data = part[part.find("(") + 1:part.find(")")]
+        json_data = part[part.find("(") + 1 : part.find(")")]
         data = json.loads(json_data)
         return datetime.date(int(data["ano"]), int(data["mes"]), int(data["dia"]))
 
 
 class SancaoCeisDownloader(BaseSancaoDownloader):
     """Dataset: Empresas Inidôneas e Suspensas"""
+
     dataset = "ceis"
     name = "sancao_ceis"
     filename_suffix = "_CEIS.csv"
@@ -377,6 +383,7 @@ class SancaoCeisDownloader(BaseSancaoDownloader):
 
 class SancaoCepimDownloader(BaseSancaoDownloader):
     """Dataset: Entidades sem Fins Lucrativos Impedidas"""
+
     dataset = "cepim"
     name = "sancao_cepim"
     filename_suffix = "_CEPIM.csv"
@@ -385,6 +392,7 @@ class SancaoCepimDownloader(BaseSancaoDownloader):
 
 class SancaoCnepDownloader(BaseSancaoDownloader):
     """Dataset: Empresas Punidas"""
+
     dataset = "cnep"
     name = "sancao_cnep"
     filename_suffix = "_CNEP.csv"
@@ -393,6 +401,7 @@ class SancaoCnepDownloader(BaseSancaoDownloader):
 
 class SancaoAcordoLenienciaDownloader(BaseSancaoDownloader):
     """Dataset: Acordos de Leniência"""
+
     dataset = "acordos-leniencia"
     name = "sancao_acordo_leniencia"
     filename_suffix = "_Acordos.csv"
@@ -401,6 +410,7 @@ class SancaoAcordoLenienciaDownloader(BaseSancaoDownloader):
 
 class SancaoCeafDownloader(BaseSancaoDownloader):
     """Dataset: Cadastro de Expulsões da Administração Federal"""
+
     dataset = "ceaf"
     name = "sancao_ceaf"
     filename_suffix = "_Expulsoes.csv"
@@ -408,6 +418,7 @@ class SancaoCeafDownloader(BaseSancaoDownloader):
 
 
 # Servidores, pensionistas e militares
+
 
 class BaseServidorDownloader(BaseDownloader):
     dataset = None  # Must define in subclass
@@ -501,15 +512,18 @@ class BaseNotaFiscalDownloader(BaseDownloader):
     end_date = current_month()
     publish_frequency = "monthly"
 
+
 class NotaFiscalDownloader(BaseNotaFiscalDownloader):
     name = "nota_fiscal"
     filename_suffix = "_NotaFiscal.csv"
     schema_filename = "nota_fiscal.csv"
 
+
 class NotaFiscalEventoDownloader(BaseNotaFiscalDownloader):
     name = "nota_fiscal_evento"
     filename_suffix = "_NotaFiscalEvento.csv"
     # TODO: schema_filename = "nota_fiscal_evento.csv"
+
 
 class NotaFiscalItemDownloader(BaseNotaFiscalDownloader):
     name = "nota_fiscal_item"
@@ -523,26 +537,29 @@ class BaseRenunciaFiscalDownloader(BaseDownloader):
     end_date = current_month()
     publish_frequency = "yearly"
 
+
 class RenunciaFiscalDownloader(BaseRenunciaFiscalDownloader):
     name = "renuncia_fiscal"
     filename_suffix = "_RenúnciasFiscais.csv"
     schema_filename = "renuncia_fiscal.csv"
+
 
 class RenunciaFiscalImuneIsentaDownloader(BaseRenunciaFiscalDownloader):
     name = "renuncia_fiscal_imune_isenta"
     filename_suffix = "_EmpresasImunesOuIsentas.csv"
     # TODO: schema_filename = "renuncia_fiscal_imune_isenta.csv"
 
+
 class RenunciaFiscalHabilitadaDownloader(BaseRenunciaFiscalDownloader):
     name = "renuncia_fiscal_habilitada"
     filename_suffix = "_EmpresasHabilitadas.csv"
     # TODO: schema_filename = "renuncia_fiscal_habilitada.csv"
 
+
 class RenunciaFiscalBeneficiariaDownloader(BaseRenunciaFiscalDownloader):
     name = "renuncia_fiscal_beneficiaria"
     filename_suffix = "_RenúnciasFiscaisPorBeneficiário.csv"
     # TODO: schema_filename = "renuncia_fiscal_beneficiaria.csv"
-
 
 
 def subclasses(cls):
@@ -570,6 +587,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.skip_download and args.download_only:
         import sys
+
         print("ERROR: cannot skip download and download only.", file=sys.stderr)
         exit(1)
     start_date = args.start_date

@@ -9,7 +9,7 @@
 "NOME FANTASIA - CADASTRO RECEITA","text","clean_text(""nome_fantasia_cadastro_receita"")","sancionado_nome_fantasia_receita_federal","text"
 "NÚMERO DO PROCESSO","text","clean_text(""numero_do_processo"")","processo","text"
 "CATEGORIA DA SANÇÃO","text","clean_text(""categoria_da_sancao"")","categoria","text"
-"VALOR DA MULTA","text","REPLACE(REPLACE(""valor_da_multa"", '.', ''), ',', '.')::numeric","valor_multa","numeric"
+"VALOR DA MULTA","text","CAST(REPLACE(REPLACE(""valor_da_multa"", '.', ''), ',', '.') AS decimal(16, 2))","valor_multa","decimal(16, 2)"
 "DATA INÍCIO SANÇÃO","text","TO_DATE(""data_inicio_sancao"", 'DD/MM/YYYY')","data_inicio","date"
 "DATA FINAL SANÇÃO","text","TO_DATE(""data_final_sancao"", 'DD/MM/YYYY')","data_fim","date"
 "DATA PUBLICAÇÃO","text","TO_DATE(""data_publicacao"", 'DD/MM/YYYY')","data_publicacao","date"
